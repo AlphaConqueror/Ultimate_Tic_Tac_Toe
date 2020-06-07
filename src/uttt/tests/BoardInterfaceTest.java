@@ -2,25 +2,30 @@ package uttt.tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
 import uttt.game.MarkInterface;
 import uttt.utils.Symbol;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BoardInterfaceTest {
 
     BoardInterface boardInterface;
 
+    @Before
     @Test
-    public void createBoardTest() {
+    public void AcreateBoardTest() {
         boardInterface = UTTTFactory.createBoard();
 
         assertNotNull("CREATE BOARD TEST FAILED: Board is null.", boardInterface);
     }
 
     @Test
-    public void marksTest() {
+    public void BmarksTest() {
         MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CIRCLE, 0),
                       markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 4),
                       markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 8);
@@ -71,7 +76,7 @@ public class BoardInterfaceTest {
     }
 
     @Test
-    public void movePossibleTest() {
+    public void CmovePossibleTest() {
         MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CROSS, 0),
                       markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 3),
                       markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 5),
@@ -90,7 +95,7 @@ public class BoardInterfaceTest {
     }
 
     @Test
-    public void winnerClosedTest() {
+    public void DwinnerClosedTest() {
         for(int i = 1; i < 2; i++) {
             Symbol symbol = Symbol.valueOf(i);
 

@@ -2,16 +2,19 @@ package uttt.tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
+import org.junit.runners.MethodSorters;
 import uttt.game.MarkInterface;
 import uttt.UTTTFactory;
 import uttt.utils.Symbol;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarkInterfaceTest {
 
     @Test
-    public void createMarkTest() {
+    public void AcreateMarkTest() {
         for(int i = 0; i < 9; i++) {
             Symbol symbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
             MarkInterface markInterface = UTTTFactory.createMark(symbol, i);
@@ -25,7 +28,7 @@ public class MarkInterfaceTest {
     }
 
     @Test
-    public void symbolTest() {
+    public void BsymbolTest() {
         MarkInterface markInterface = UTTTFactory.createMark(Symbol.EMPTY, 0);
 
         for(int i = 0; i < 20; i++) {
