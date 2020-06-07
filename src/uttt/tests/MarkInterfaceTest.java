@@ -16,6 +16,7 @@ public class MarkInterfaceTest {
             Symbol symbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
             MarkInterface markInterface = UTTTFactory.createMark(symbol, i);
 
+            assertNotNull("CREATE MARK TEST FAILED: MarkInterface is null.", markInterface);
             assertTrue("CREATE MARK TEST FAILED: Mark at the wrong position. Right position = " + i + ", got position " + markInterface.getPosition(),
                     markInterface.getPosition() == i);
             assertTrue("CREATE MARK TEST FAILED: Wrong symbol. Right symbol = " + symbol.toString() + ", got symbol " + markInterface.getSymbol(),
