@@ -15,12 +15,10 @@ public class SimpleTest {
 	@Before
 	public void setUp() throws Exception {
 		simulator = UTTTFactory.createSimulator();
-
 	}
 
 	@Test
 	public void simpleSetPieceTest() {
 		assertNotNull(simulator);
 	}
-
 }
