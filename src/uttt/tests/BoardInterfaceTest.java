@@ -42,7 +42,7 @@ public class BoardInterfaceTest {
 
         boardMarks = boardInterface.getMarks();
 
-        assertNotNull("MARKS TEST FAILED: Board marks array is null.", boardMarks);
+        assertNotNull("MARKS TEST FAILED: Board mark array is null.", boardMarks);
         assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + marks.length + ".",
                 marks.length != 9);
 

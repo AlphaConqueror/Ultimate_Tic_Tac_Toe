@@ -27,8 +27,10 @@ public class SimulatorInterfaceTest {
     public void bBoardsTest() {
         BoardInterface[] boards = simulatorInterface.getBoards();
 
+        assertNotNull("BOARDS TEST FAILED: Board array is null", boards);
+
         for(BoardInterface board : boards)
-            assertNull("BOARD TEST FAILED: Created simulator is not initialized null.", board);
+            assertNull("BOARDS TEST FAILED: Created simulator is not initialized null.", board);
 
 
     }
