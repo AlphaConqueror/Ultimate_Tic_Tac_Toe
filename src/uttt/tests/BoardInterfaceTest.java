@@ -2,9 +2,9 @@ package uttt.tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+
 import org.junit.runners.MethodSorters;
 import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
@@ -14,18 +14,22 @@ import uttt.utils.Symbol;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BoardInterfaceTest {
 
-    BoardInterface boardInterface;
+    private BoardInterface boardInterface;
 
-    @Before
     @Test
-    public void AcreateBoardTest() {
+    public void aCreateBoardTest() {
         boardInterface = UTTTFactory.createBoard();
 
         assertNotNull("CREATE BOARD TEST FAILED: Board is null.", boardInterface);
     }
 
     @Test
-    public void BmarksTest() {
+    public void bMarksTest() {
+        MarkInterface[] boardMarks = boardInterface.getMarks();
+
+        for(MarkInterface mark : boardMarks)
+            assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
+
         MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CIRCLE, 0),
                       markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 4),
                       markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 8);
@@ -36,13 +40,13 @@ public class BoardInterfaceTest {
 
         boardInterface.setMarks(marks);
 
-        MarkInterface[] boardMarks = boardInterface.getMarks();
+        boardMarks = boardInterface.getMarks();
 
-        assertNotNull("MARKS TEST FAILED: Board marks array is null.", marks);
+        assertNotNull("MARKS TEST FAILED: Board marks array is null.", boardMarks);
         assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + marks.length + ".",
                 marks.length != 9);
 
-        for(MarkInterface mark : marks)
+        for(MarkInterface mark : boardMarks)
             assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
 
         for(int i = 0; i < 9; i++)
@@ -62,21 +66,23 @@ public class BoardInterfaceTest {
             Symbol symbol = boardMarks[i].getSymbol(),
                    newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
 
-            boardInterface.setMarkAt(newSymbol, i);
+            boolean bool = boardInterface.setMarkAt(newSymbol, i);
 
             Symbol markSymbol = boardInterface.getMarks()[i].getSymbol();
 
             if(symbol == Symbol.EMPTY)
                 assertTrue("MARKS TEST FAILED: New mark has not been set successfully. Right symbol = " + newSymbol.toString()
                                 + ", got symbol " + markSymbol.toString(),
-                        symbol == Symbol.EMPTY && markSymbol != newSymbol);
+                        symbol == Symbol.EMPTY && markSymbol != newSymbol && bool);
             else
                 assertTrue("MARKS TEST FAILED: Occupied mark has been changed.", symbol != markSymbol);
+
+            assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is true, got false.", !bool);
         }
     }
 
     @Test
-    public void CmovePossibleTest() {
+    public void cMovePossibleTest() {
         MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CROSS, 0),
                       markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 3),
                       markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 5),
@@ -95,9 +101,9 @@ public class BoardInterfaceTest {
     }
 
     @Test
-    public void DwinnerClosedTest() {
+    public void dWinnerClosedTest() {
         for(int i = 1; i < 2; i++) {
-            Symbol symbol = Symbol.valueOf(i);
+            Symbol symbol = (i == 1) ? Symbol.CROSS : Symbol.CIRCLE;
 
             //Vertical lines
             for (int j = 0; j < 3; j++) {

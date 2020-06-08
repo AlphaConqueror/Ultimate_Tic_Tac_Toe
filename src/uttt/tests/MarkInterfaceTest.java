@@ -14,7 +14,7 @@ import uttt.utils.Symbol;
 public class MarkInterfaceTest {
 
     @Test
-    public void AcreateMarkTest() {
+    public void aCreateMarkTest() {
         for(int i = 0; i < 9; i++) {
             Symbol symbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
             MarkInterface markInterface = UTTTFactory.createMark(symbol, i);
@@ -28,7 +28,7 @@ public class MarkInterfaceTest {
     }
 
     @Test
-    public void BsymbolTest() {
+    public void bSymbolTest() {
         MarkInterface markInterface = UTTTFactory.createMark(Symbol.EMPTY, 0);
 
         for(int i = 0; i < 20; i++) {
