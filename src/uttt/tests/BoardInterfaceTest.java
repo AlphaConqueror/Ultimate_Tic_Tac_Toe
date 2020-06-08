@@ -27,6 +27,8 @@ public class BoardInterfaceTest {
     public void bMarksTest() {
         MarkInterface[] boardMarks = boardInterface.getMarks();
 
+        assertNotNull("MARKS TEST FAILED: Board mark array is null.", boardMarks);
+
         for(MarkInterface mark : boardMarks)
             assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
 
@@ -42,9 +44,7 @@ public class BoardInterfaceTest {
 
         boardMarks = boardInterface.getMarks();
 
-        assertNotNull("MARKS TEST FAILED: Board mark array is null.", boardMarks);
-        assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + marks.length + ".",
-                marks.length != 9);
+        assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + marks.length + ".", marks.length == 9);
 
         for(MarkInterface mark : boardMarks)
             assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
