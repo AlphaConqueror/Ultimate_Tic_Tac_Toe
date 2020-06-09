@@ -80,19 +80,63 @@ public class SimulatorInterfaceTest {
         simulatorInterface = UTTTFactory.createSimulator();
 
         assertTrue("CURRENT PLAYER TEST FAILED: Wrong player begins the game. Right symbol = "
-                        + Symbol.CROSS.toString() + ", got symbol " + simulatorInterface.getCurrentPlayerSymbol().toString(),
+                        + Symbol.CROSS.toString() + ", got symbol " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
                 simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
 
+        simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
+                                                           UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
+                                                           UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
 
+        simulatorInterface.getBoards()[0].setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 0);
+
+        assertTrue("CURRENT PLAYER TEST FAILED: Wrong symbol is now playing. Right symbol = " + Symbol.CIRCLE.toString()
+                        + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
+                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CIRCLE);
+
+        simulatorInterface.getBoards()[0].setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1);
+
+        assertTrue("CURRENT PLAYER TEST FAILED: Wrong symbol is now playing. Right symbol = " + Symbol.CROSS.toString()
+                        + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
+                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
+
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CIRCLE);
+
+        assertTrue("CURRENT PLAYER TEST FAILED: #setCurrentPlayerSymbol did not change the current player symbol. Right symbol = "
+                        + Symbol.CIRCLE.toString() + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
+                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CIRCLE);
+
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
+
+        assertTrue("CURRENT PLAYER TEST FAILED: #setCurrentPlayerSymbol did not change the current player symbol. Right symbol = "
+                        + Symbol.CROSS.toString() + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
+                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
     }
 
     @Test
-    public void cNextIndexTest() {
-
-    }
-
-    @Test
-    public void eSetMarkTest() {
+    public void dSetMarkTest() {
         simulatorInterface = UTTTFactory.createSimulator();
+
+        simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
+                UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
+                UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
+
+        boolean bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol().flip(), 0, 0);
+
+        assertTrue("SET MARK TEST FAILED: #setMarkAt with wrong symbol returns wrong boolean. Right bool = false, got true.", !bool);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt returns false but sets mark.",
+                simulatorInterface.getBoards()[0].getMarks()[0].getSymbol() == Symbol.EMPTY);
+
+        Symbol currentSymbol = simulatorInterface.getCurrentPlayerSymbol();
+        bool = simulatorInterface.setMarkAt(currentSymbol, 0, 0);
+
+        assertTrue("SET MARK TEST FAILED: #setMarkAt with right symbol returns wrong boolean. Right bool = true, got false.", bool);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt did not set the right symbol. Right symbol = " + currentSymbol.toString()
+                        + ", got " + simulatorInterface.getBoards()[0].getMarks()[0].getSymbol().toString() + ".",
+                simulatorInterface.getBoards()[0].getMarks()[0].getSymbol() == currentSymbol);
+    }
+
+    @Test
+    public void eNextIndexTest() {
+
     }
 }
