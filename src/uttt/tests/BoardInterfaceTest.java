@@ -28,9 +28,10 @@ public class BoardInterfaceTest {
         MarkInterface[] boardMarks = boardInterface.getMarks();
 
         assertNotNull("MARKS TEST FAILED: Board mark array is null.", boardMarks);
+        assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + boardMarks.length + ".", boardMarks.length == 9);
 
         for(MarkInterface mark : boardMarks)
-            assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
+            assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() == Symbol.EMPTY);
 
         MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CIRCLE, 0),
                       markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 4),
@@ -44,14 +45,11 @@ public class BoardInterfaceTest {
 
         boardMarks = boardInterface.getMarks();
 
-        assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + marks.length + ".", marks.length == 9);
-
-        for(MarkInterface mark : boardMarks)
-            assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() != Symbol.EMPTY);
+        assertNotNull("MARKS TEST FAILED: Board mark array is null after setting marks.", boardMarks);
 
         for(int i = 0; i < 9; i++)
             assertTrue("MARKS TEST FAILED: Board marks are not in the right order. Index = " + i + ", got pos = " + boardMarks[i].getPosition(),
-                    i != boardMarks[i].getPosition());
+                    i == boardMarks[i].getPosition());
 
         for(int i = 0; i < 9; i++) {
             assertNotNull("MARKS TEST FAILED: Board marks at index " + i + " returns null.", boardMarks[i]);
@@ -73,11 +71,14 @@ public class BoardInterfaceTest {
             if(symbol == Symbol.EMPTY)
                 assertTrue("MARKS TEST FAILED: New mark has not been set successfully. Right symbol = " + newSymbol.toString()
                                 + ", got symbol " + markSymbol.toString(),
-                        symbol == Symbol.EMPTY && markSymbol != newSymbol && bool);
+                        markSymbol == newSymbol);
             else
                 assertTrue("MARKS TEST FAILED: Occupied mark has been changed.", symbol != markSymbol);
 
-            assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is true, got false.", !bool);
+            if(symbol != newSymbol && newSymbol == markSymbol)
+                assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is true, got false.", bool);
+            else
+                assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is false, got true.", !bool);
         }
     }
 
@@ -114,8 +115,8 @@ public class BoardInterfaceTest {
                 boardInterface.setMarkAt(symbol, j + 6);
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner " + boardInterface.getWinner().toString() + ".",
-                        boardInterface.getWinner() != symbol);
-                assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", !boardInterface.isClosed());
+                        boardInterface.getWinner() == symbol);
+                assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", boardInterface.isClosed());
             }
 
             //Horizontal lines
@@ -127,8 +128,8 @@ public class BoardInterfaceTest {
                 boardInterface.setMarkAt(symbol, j * 3 + 2);
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner " + boardInterface.getWinner().toString() + ".",
-                        boardInterface.getWinner() != symbol);
-                assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", !boardInterface.isClosed());
+                        boardInterface.getWinner() == symbol);
+                assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", boardInterface.isClosed());
             }
 
             //Diagonal line top left -> bottom right
@@ -139,8 +140,8 @@ public class BoardInterfaceTest {
             boardInterface.setMarkAt(symbol, 8);
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner " + boardInterface.getWinner().toString() + ".",
-                    boardInterface.getWinner() != symbol);
-            assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", !boardInterface.isClosed());
+                    boardInterface.getWinner() == symbol);
+            assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", boardInterface.isClosed());
 
             //Diagonal line top right -> bottom left
             boardInterface = UTTTFactory.createBoard();
@@ -150,15 +151,15 @@ public class BoardInterfaceTest {
             boardInterface.setMarkAt(symbol, 6);
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner " + boardInterface.getWinner().toString() + ".",
-                    boardInterface.getWinner() != symbol);
-            assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", !boardInterface.isClosed());
+                    boardInterface.getWinner() == symbol);
+            assertTrue("CLOSED TEST FAILED: Board has winner but is not closed.", boardInterface.isClosed());
         }
 
         boardInterface = UTTTFactory.createBoard();
 
         assertTrue("WINNER TEST FAILED: No winner yet but got as winner symbol " + boardInterface.getWinner() + ".",
-                boardInterface.getWinner() != Symbol.EMPTY);
-        assertTrue("CLOSED TEST FAILED: Initialized board has been identified as closed.", boardInterface.isClosed());
+                boardInterface.getWinner() == Symbol.EMPTY);
+        assertTrue("CLOSED TEST FAILED: Initialized board has been identified as closed.", !boardInterface.isClosed());
 
         boardInterface.setMarkAt(Symbol.CROSS, 0);
         boardInterface.setMarkAt(Symbol.CROSS, 1);
@@ -171,7 +172,7 @@ public class BoardInterfaceTest {
         boardInterface.setMarkAt(Symbol.CROSS, 8);
 
         assertTrue("WINNER TEST FAILED: It is a tie but got as winner symbol " + boardInterface.getWinner() + ".",
-                boardInterface.getWinner() != Symbol.EMPTY);
-        assertTrue("CLOSED TEST FAILED: Board is closed but got that it is not.", !boardInterface.isClosed());
+                boardInterface.getWinner() == Symbol.EMPTY);
+        assertTrue("CLOSED TEST FAILED: Board is closed but got that it is not.", boardInterface.isClosed());
     }
 }
