@@ -79,9 +79,7 @@ public class SimulatorInterfaceTest {
     public void cCurrentPlayerTest() {
         simulatorInterface = UTTTFactory.createSimulator();
 
-        assertTrue("CURRENT PLAYER TEST FAILED: Wrong player begins the game. Right symbol = "
-                        + Symbol.CROSS.toString() + ", got symbol " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
-                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
+        //No need to test if the right player starts bc it's the job of #run
 
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                                                            UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
@@ -120,23 +118,238 @@ public class SimulatorInterfaceTest {
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
 
-        boolean bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol().flip(), 0, 0);
+        boolean bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol().flip(), 4, 4);
 
         assertTrue("SET MARK TEST FAILED: #setMarkAt with wrong symbol returns wrong boolean. Right bool = false, got true.", !bool);
         assertTrue("SET MARK TEST FAILED: #setMarkAt returns false but sets mark.",
-                simulatorInterface.getBoards()[0].getMarks()[0].getSymbol() == Symbol.EMPTY);
+                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == Symbol.EMPTY);
 
         Symbol currentSymbol = simulatorInterface.getCurrentPlayerSymbol();
-        bool = simulatorInterface.setMarkAt(currentSymbol, 0, 0);
+        bool = simulatorInterface.setMarkAt(currentSymbol, 4, 4);
 
         assertTrue("SET MARK TEST FAILED: #setMarkAt with right symbol returns wrong boolean. Right bool = true, got false.", bool);
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not set the right symbol. Right symbol = " + currentSymbol.toString()
-                        + ", got " + simulatorInterface.getBoards()[0].getMarks()[0].getSymbol().toString() + ".",
-                simulatorInterface.getBoards()[0].getMarks()[0].getSymbol() == currentSymbol);
+                        + ", got " + simulatorInterface.getBoards()[4].getMarks()[4].getSymbol().toString() + ".",
+                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol);
+
+        bool = simulatorInterface.setMarkAt(currentSymbol, -1, 4);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
+
+        bool = simulatorInterface.setMarkAt(currentSymbol, 9, 4);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got 9.", !bool);
+
+        bool = simulatorInterface.setMarkAt(currentSymbol, 4, -1);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt marIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
+
+        bool = simulatorInterface.setMarkAt(currentSymbol, 4, 9);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt markIndex out of bounds. Bounds = [0, 8], got 9.", !bool);
     }
 
     @Test
     public void eNextIndexTest() {
+        simulatorInterface = UTTTFactory.createSimulator();
+
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == -1);
+
+        BoardInterface[] boards = new BoardInterface[9];
+
+        for(int k = 0; k < 9; k++)
+            boards[k] = UTTTFactory.createBoard();
+
+        simulatorInterface.setBoards(boards);
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 7);
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 1, got " + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == 1);
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 7);
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 7, got " + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == 7);
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 7, 2);
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 2, got " + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == 2);
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 1);
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == -1);
+
+        simulatorInterface.setIndexNextBoard(1);
+        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = 1, got "
+                        + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == 1);
+
+        simulatorInterface.setIndexNextBoard(5);
+        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = 5, got "
+                        + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == 5);
+
+        simulatorInterface.setIndexNextBoard(-1);
+        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = -1, got "
+                        + simulatorInterface.getIndexNextBoard() + ".",
+                simulatorInterface.getIndexNextBoard() == -1);
+    }
+
+    @Test
+    public void fMovePossibleTest() {
+        simulatorInterface = UTTTFactory.createSimulator();
+        BoardInterface[] boards = new BoardInterface[9];
+
+        for(int k = 0; k < 9; k++)
+            boards[k] = UTTTFactory.createBoard();
+
+        simulatorInterface.setBoards(boards);
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 0, 1);
+
+        for(int i = 0; i < 9; i++)
+            assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
+                simulatorInterface.isMovePossible(1, i));
+
+        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 8);
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is possible when it is not. Set board index = 1, checked (1,0)",
+                !simulatorInterface.isMovePossible(1, 0));
+    }
+
+    @Test
+    public void gWinnerGameOverTest() {
+        for(int i = 1; i < 2; i++) {
+            Symbol symbol = (i == 1) ? Symbol.CROSS : Symbol.CIRCLE;
+
+            //Vertical lines
+            for (int j = 0; j < 3; j++) {
+                simulatorInterface = UTTTFactory.createSimulator();
+                BoardInterface[] boards = new BoardInterface[9];
+
+                for(int k = 0; k < 9; k++)
+                    boards[k] = UTTTFactory.createBoard();
+
+                simulatorInterface.setBoards(boards);
+
+                for(int k = 0; k < 3; k++) {
+                    simulatorInterface.setMarkAt(symbol, j, k);
+                    simulatorInterface.setMarkAt(symbol, j + 3, k);
+                    simulatorInterface.setMarkAt(symbol, j + 6, k);
+                }
+
+                assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
+                                + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
+                        simulatorInterface.isGameOver());
+            }
+
+            //Horizontal lines
+            for (int j = 0; j < 3; j++) {
+                simulatorInterface = UTTTFactory.createSimulator();
+                BoardInterface[] boards = new BoardInterface[9];
+
+                for(int k = 0; k < 9; k++)
+                    boards[k] = UTTTFactory.createBoard();
+
+                simulatorInterface.setBoards(boards);
+
+                for(int k = 0; k < 3; k++) {
+                    simulatorInterface.setMarkAt(symbol, j * 3, k);
+                    simulatorInterface.setMarkAt(symbol, j * 3 + 1, k);
+                    simulatorInterface.setMarkAt(symbol, j * 3 + 2, k);
+                }
+
+                assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
+                                + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
+                        simulatorInterface.isGameOver());
+            }
+
+            //Diagonal line top left -> bottom right
+            simulatorInterface = UTTTFactory.createSimulator();
+            BoardInterface[] boards = new BoardInterface[9];
+
+            for(int k = 0; k < 9; k++)
+                boards[k] = UTTTFactory.createBoard();
+
+            simulatorInterface.setBoards(boards);
+
+            for(int k = 0; k < 3; k++) {
+                simulatorInterface.setMarkAt(symbol, 0, k);
+                simulatorInterface.setMarkAt(symbol, 4, k);
+                simulatorInterface.setMarkAt(symbol, 8, k);
+            }
+
+            assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
+                            + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+            assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
+                    simulatorInterface.isGameOver());
+
+            //Diagonal line top right -> bottom left
+            simulatorInterface = UTTTFactory.createSimulator();
+            boards = new BoardInterface[9];
+
+            for(int k = 0; k < 9; k++)
+                boards[k] = UTTTFactory.createBoard();
+
+            simulatorInterface.setBoards(boards);
+
+            for(int k = 0; k < 3; k++) {
+                simulatorInterface.setMarkAt(symbol, 2, k);
+                simulatorInterface.setMarkAt(symbol, 4, k);
+                simulatorInterface.setMarkAt(symbol, 6, k);
+            }
+
+            assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
+                            + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+            assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
+                    simulatorInterface.isGameOver());
+        }
+
+        simulatorInterface = UTTTFactory.createSimulator();
+
+        assertTrue("WINNER TEST FAILED: No winner yet but got as winner symbol " + simulatorInterface.getWinner() + ".",
+                simulatorInterface.getWinner() == Symbol.EMPTY);
+        assertTrue("GAME OVER TEST FAILED: Game has been identified as over when it is not.",
+                !simulatorInterface.isGameOver());
+
+        simulatorInterface = UTTTFactory.createSimulator();
+        BoardInterface[] boards = new BoardInterface[9];
+
+        for(int k = 0; k < 9; k++)
+            boards[k] = UTTTFactory.createBoard();
+
+        simulatorInterface.setBoards(boards);
+
+        assertTrue("WINNER TEST FAILED: No winner yet but got as winner symbol " + simulatorInterface.getWinner() + ".",
+                simulatorInterface.getWinner() == Symbol.EMPTY);
+        assertTrue("GAME OVER TEST FAILED: Game has been identified as over when it is not.",
+                !simulatorInterface.isGameOver());
+
+        simulatorInterface = UTTTFactory.createSimulator();
+        boards = new BoardInterface[9];
+
+        for(int k = 0; k < 9; k++)
+            boards[k] = UTTTFactory.createBoard();
+
+        simulatorInterface.setBoards(boards);
+
+        for(int k = 0; k < 3; k++) {
+            simulatorInterface.setMarkAt(Symbol.CROSS, 0, k);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 1, k);
+            simulatorInterface.setMarkAt(Symbol.CIRCLE, 2, k);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 3, k);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 4, k);
+            simulatorInterface.setMarkAt(Symbol.CIRCLE, 5, k);
+            simulatorInterface.setMarkAt(Symbol.CIRCLE, 6, k);
+            simulatorInterface.setMarkAt(Symbol.CIRCLE, 7, k);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 8, k);
+        }
+
+        assertTrue("WINNER TEST FAILED: It is a tie but got as winner symbol " + simulatorInterface.getWinner() + ".",
+                simulatorInterface.getWinner() == Symbol.EMPTY);
+        assertTrue("GAME OVER TEST FAILED: Game has not been identified as over when it is a tie.",
+                simulatorInterface.isGameOver());
+    }
+
+    @Test
+    public void hGameOverTest() {
 
     }
 }

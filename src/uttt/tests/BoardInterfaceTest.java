@@ -103,9 +103,9 @@ public class BoardInterfaceTest {
 
         for(MarkInterface mark : boardInterface.getMarks()) {
             assertTrue("MOVE POSSIBLE TEST FAILED: Move is possible but got move is not possible.",
-                    mark.getSymbol() == Symbol.EMPTY && !boardInterface.isMovePossible(mark.getPosition()));
+                    mark.getSymbol() == Symbol.EMPTY && boardInterface.isMovePossible(mark.getPosition()));
             assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
-                    mark.getSymbol() != Symbol.EMPTY && boardInterface.isMovePossible(mark.getPosition()));
+                    mark.getSymbol() != Symbol.EMPTY && !boardInterface.isMovePossible(mark.getPosition()));
         }
     }
 
