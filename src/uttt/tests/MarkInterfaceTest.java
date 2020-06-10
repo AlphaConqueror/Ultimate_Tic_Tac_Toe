@@ -25,6 +25,9 @@ public class MarkInterfaceTest {
             assertTrue("CREATE MARK TEST FAILED: Wrong symbol. Right symbol = " + symbol.toString() + ", got symbol " + markInterface.getSymbol(),
                     markInterface.getSymbol() == symbol);
         }
+
+        assertNull("CREATE MARK TEST FAILED: Mark created out of bounds has not been detected.", UTTTFactory.createMark(Symbol.CROSS, -1));
+        assertNull("CREATE MARK TEST FAILED: Mark created out of bounds has not been detected.", UTTTFactory.createMark(Symbol.CROSS, 9));
     }
 
     @Test

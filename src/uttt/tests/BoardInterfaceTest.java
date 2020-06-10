@@ -62,11 +62,18 @@ public class BoardInterfaceTest {
                     marks[i].equals(boardMarks[i]));
         }
 
+        boardInterface = UTTTFactory.createBoard();
+        boolean bool = boardInterface.setMarkAt(null, 0);
+
+        assertTrue("MARK TEST FAILED: #setMarkAt has null as 1st argument and does not return false.", !bool);
+
+        boardInterface = UTTTFactory.createBoard();
+
         for(int i = 0; i < 9; i++) {
             Symbol symbol = boardMarks[i].getSymbol(),
                    newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
 
-            boolean bool = boardInterface.setMarkAt(newSymbol, i);
+            bool = boardInterface.setMarkAt(newSymbol, i);
 
             Symbol markSymbol = boardInterface.getMarks()[i].getSymbol();
 
@@ -85,7 +92,7 @@ public class BoardInterfaceTest {
 
         boardInterface = UTTTFactory.createBoard();
 
-        boolean bool = boardInterface.setMarkAt(Symbol.CROSS, -1);
+        bool = boardInterface.setMarkAt(Symbol.CROSS, -1);
         assertTrue("MARKS TEST FAILED: #setMarkAt index out of bounds. Bounds = [0, 8], got -1.", !bool);
 
         bool = boardInterface.setMarkAt(Symbol.CROSS, 9);
@@ -105,6 +112,11 @@ public class BoardInterfaceTest {
             assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
                     mark.getSymbol() != Symbol.EMPTY && !boardInterface.isMovePossible(mark.getPosition()));
         }
+
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible does not return false when arguments out of bounds.",
+                boardInterface.isMovePossible(-1));
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible does not return false when arguments out of bounds.",
+                boardInterface.isMovePossible(9));
     }
 
     @Test

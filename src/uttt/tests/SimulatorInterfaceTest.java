@@ -172,6 +172,16 @@ public class SimulatorInterfaceTest {
         for(int i = 0; i < 9; i++)
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
                 simulatorInterface.isMovePossible(1, i));
+
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) with 1st argument out of bounds did not return false.",
+                !simulatorInterface.isMovePossible(-1));
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) with 1st argument out of bounds did not return false.",
+                !simulatorInterface.isMovePossible(9));
+
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(m,b) with 1st argument out of bounds did not return false.",
+                !simulatorInterface.isMovePossible(1, -1));
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(m,b) with 1st argument out of bounds did not return false.",
+                !simulatorInterface.isMovePossible(1, 9));
     }
 
     @Test
