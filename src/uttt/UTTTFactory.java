@@ -3,6 +3,7 @@ package uttt;
 import uttt.game.*;
 import uttt.game.handling.Board;
 import uttt.game.handling.Mark;
+import uttt.game.handling.Player;
 import uttt.game.handling.Simulator;
 import uttt.ui.GUI;
 import uttt.utils.Symbol;
@@ -62,7 +63,7 @@ public class UTTTFactory {
 	 *         communicate with the human player to select moves.
 	 */
 	public static PlayerInterface createHumanPlayer(Symbol symbol) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		return new Player(symbol);
 	}
 
 	/**

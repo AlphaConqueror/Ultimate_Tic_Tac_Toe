@@ -5,6 +5,7 @@ import uttt.game.BoardInterface;
 import uttt.game.PlayerInterface;
 import uttt.game.SimulatorInterface;
 import uttt.game.UserInterface;
+import uttt.utils.Move;
 import uttt.utils.Symbol;
 
 public class Simulator implements SimulatorInterface {
@@ -84,6 +85,9 @@ public class Simulator implements SimulatorInterface {
 
     @Override
     public boolean isMovePossible(int boardIndex) throws IllegalArgumentException {
+        if(boardIndex < 0 || boardIndex > 8)
+            return false;
+
         BoardInterface board = boards[boardIndex];
 
         if(board.isClosed())
@@ -132,5 +136,15 @@ public class Simulator implements SimulatorInterface {
     @Override
     public void run(PlayerInterface playerOne, PlayerInterface playerTwo, UserInterface ui) throws IllegalArgumentException {
         setCurrentPlayerSymbol(Symbol.CROSS);
+
+        //TODO: Log and debug
+
+        while(!isGameOver()) {
+            PlayerInterface currentPlayer = playerOne.getSymbol() == currentSymbol ? playerOne : playerTwo;
+            Move move = currentPlayer.getPlayerMove(this, ui);
+
+            setMarkAt(currentSymbol, move.getBoardIndex(), move.getMarkIndex());
+            ui.updateScreen(this);
+        }
     }
 }

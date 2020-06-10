@@ -48,5 +48,4 @@ public class Move {
 			return false;
 		return true;
 	}
-
 }

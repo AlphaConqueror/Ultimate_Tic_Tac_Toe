@@ -49,6 +49,9 @@ public class Board implements BoardInterface {
 
     @Override
     public boolean isMovePossible(int markIndex) throws IllegalArgumentException {
+        if(markIndex < 0 || markIndex > 8)
+            return false;
+
         if(isClosed())
             return false;
 
