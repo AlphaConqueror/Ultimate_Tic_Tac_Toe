@@ -25,9 +25,10 @@ public class BoardInterfaceTest {
 
     @Test
     public void bMarksTest() {
+        assertNotNull("MARKS TEST FAILED: #getMarks returns null.", boardInterface.getMarks());
+
         MarkInterface[] boardMarks = boardInterface.getMarks();
 
-        assertNotNull("MARKS TEST FAILED: Board mark array is null.", boardMarks);
         assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + boardMarks.length + ".", boardMarks.length == 9);
 
         for(MarkInterface mark : boardMarks)
@@ -92,14 +93,10 @@ public class BoardInterfaceTest {
 
     @Test
     public void cMovePossibleTest() {
-        MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CROSS, 0),
-                      markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 3),
-                      markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 5),
-                      markInterface3 = UTTTFactory.createMark(Symbol.CIRCLE, 8);
-
-        boardInterface.setMarks(new MarkInterface[] {markInterface0, null, null,
-                                                     markInterface1, null, markInterface2,
-                                                     null, null, markInterface3});
+        boardInterface.setMarks(
+                new MarkInterface[] {UTTTFactory.createMark(Symbol.CROSS, 0), UTTTFactory.createMark(Symbol.EMPTY, 1), UTTTFactory.createMark(Symbol.EMPTY, 2),
+                        UTTTFactory.createMark(Symbol.CROSS, 3), UTTTFactory.createMark(Symbol.EMPTY, 4), UTTTFactory.createMark(Symbol.CIRCLE, 5),
+                        UTTTFactory.createMark(Symbol.EMPTY, 6), UTTTFactory.createMark(Symbol.EMPTY, 7), UTTTFactory.createMark(Symbol.CIRCLE, 8)});
 
         for(MarkInterface mark : boardInterface.getMarks()) {
             assertTrue("MOVE POSSIBLE TEST FAILED: Move is possible but got move is not possible.",
@@ -172,12 +169,12 @@ public class BoardInterfaceTest {
         boardInterface.setMarkAt(Symbol.CROSS, 0);
         boardInterface.setMarkAt(Symbol.CROSS, 1);
         boardInterface.setMarkAt(Symbol.CIRCLE, 2);
-        boardInterface.setMarkAt(Symbol.CROSS, 3);
+        boardInterface.setMarkAt(Symbol.CIRCLE, 3);
         boardInterface.setMarkAt(Symbol.CROSS, 4);
-        boardInterface.setMarkAt(Symbol.CIRCLE, 5);
-        boardInterface.setMarkAt(Symbol.CIRCLE, 6);
+        boardInterface.setMarkAt(Symbol.CROSS, 5);
+        boardInterface.setMarkAt(Symbol.CROSS, 6);
         boardInterface.setMarkAt(Symbol.CIRCLE, 7);
-        boardInterface.setMarkAt(Symbol.CROSS, 8);
+        boardInterface.setMarkAt(Symbol.CIRCLE, 8);
 
         assertTrue("WINNER TEST FAILED: It is a tie but got as winner symbol " + boardInterface.getWinner() + ".",
                 boardInterface.getWinner() == Symbol.EMPTY);

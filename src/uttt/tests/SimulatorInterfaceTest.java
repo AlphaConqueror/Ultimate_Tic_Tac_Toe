@@ -25,9 +25,9 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void bBoardsTest() {
-        BoardInterface[] boards = simulatorInterface.getBoards();
+        assertNotNull("BOARDS TEST FAILED: Board array is null", simulatorInterface.getBoards());
 
-        assertNotNull("BOARDS TEST FAILED: Board array is null", boards);
+        BoardInterface[] boards = simulatorInterface.getBoards();
 
         for(BoardInterface board : boards)
             assertNull("BOARDS TEST FAILED: Created simulator is not initialized null.", board);
@@ -85,28 +85,16 @@ public class SimulatorInterfaceTest {
                                                            UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                                                            UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
 
-        simulatorInterface.getBoards()[0].setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 0);
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CIRCLE);
 
         assertTrue("CURRENT PLAYER TEST FAILED: Wrong symbol is now playing. Right symbol = " + Symbol.CIRCLE.toString()
                         + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
                 simulatorInterface.getCurrentPlayerSymbol() == Symbol.CIRCLE);
 
-        simulatorInterface.getBoards()[0].setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1);
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
 
         assertTrue("CURRENT PLAYER TEST FAILED: Wrong symbol is now playing. Right symbol = " + Symbol.CROSS.toString()
                         + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
-                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
-
-        simulatorInterface.setCurrentPlayerSymbol(Symbol.CIRCLE);
-
-        assertTrue("CURRENT PLAYER TEST FAILED: #setCurrentPlayerSymbol did not change the current player symbol. Right symbol = "
-                        + Symbol.CIRCLE.toString() + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
-                simulatorInterface.getCurrentPlayerSymbol() == Symbol.CIRCLE);
-
-        simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
-
-        assertTrue("CURRENT PLAYER TEST FAILED: #setCurrentPlayerSymbol did not change the current player symbol. Right symbol = "
-                        + Symbol.CROSS.toString() + ", got " + simulatorInterface.getCurrentPlayerSymbol().toString() + ".",
                 simulatorInterface.getCurrentPlayerSymbol() == Symbol.CROSS);
     }
 
@@ -120,17 +108,15 @@ public class SimulatorInterfaceTest {
 
         boolean bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol().flip(), 4, 4);
 
-        assertTrue("SET MARK TEST FAILED: #setMarkAt with wrong symbol returns wrong boolean. Right bool = false, got true.", !bool);
         assertTrue("SET MARK TEST FAILED: #setMarkAt returns false but sets mark.",
-                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == Symbol.EMPTY);
+                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == Symbol.EMPTY && !bool);
 
         Symbol currentSymbol = simulatorInterface.getCurrentPlayerSymbol();
         bool = simulatorInterface.setMarkAt(currentSymbol, 4, 4);
 
-        assertTrue("SET MARK TEST FAILED: #setMarkAt with right symbol returns wrong boolean. Right bool = true, got false.", bool);
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not set the right symbol. Right symbol = " + currentSymbol.toString()
                         + ", got " + simulatorInterface.getBoards()[4].getMarks()[4].getSymbol().toString() + ".",
-                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol);
+                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol && bool);
 
         bool = simulatorInterface.setMarkAt(currentSymbol, -1, 4);
         assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
@@ -159,35 +145,20 @@ public class SimulatorInterfaceTest {
 
         simulatorInterface.setBoards(boards);
 
-        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 7);
+        simulatorInterface.setIndexNextBoard(1);
         assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 1, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == 1);
 
-        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 7);
+        simulatorInterface.setIndexNextBoard(7);
         assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 7, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == 7);
 
-        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 7, 2);
+        simulatorInterface.setIndexNextBoard(2);
         assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = 2, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == 2);
 
-        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 1);
-        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
-                simulatorInterface.getIndexNextBoard() == -1);
-
-        simulatorInterface.setIndexNextBoard(1);
-        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = 1, got "
-                        + simulatorInterface.getIndexNextBoard() + ".",
-                simulatorInterface.getIndexNextBoard() == 1);
-
-        simulatorInterface.setIndexNextBoard(5);
-        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = 5, got "
-                        + simulatorInterface.getIndexNextBoard() + ".",
-                simulatorInterface.getIndexNextBoard() == 5);
-
         simulatorInterface.setIndexNextBoard(-1);
-        assertTrue("NEXT INDEX TEST FAILED: #setIndexNextBoard did not set the right index. Right index = -1, got "
-                        + simulatorInterface.getIndexNextBoard() + ".",
+        assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == -1);
     }
 
@@ -327,7 +298,6 @@ public class SimulatorInterfaceTest {
 
         for(int k = 0; k < 9; k++)
             boards[k] = UTTTFactory.createBoard();
-
         simulatorInterface.setBoards(boards);
 
         for(int k = 0; k < 3; k++) {
