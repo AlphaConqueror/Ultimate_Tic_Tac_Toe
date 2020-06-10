@@ -2,6 +2,7 @@ package uttt.tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class SimulatorInterfaceTest {
 
     private SimulatorInterface simulatorInterface;
 
-    @Test
+    @Before
     public void aCreateSimulatorTest() {
         simulatorInterface = UTTTFactory.createSimulator();
 
@@ -25,12 +26,9 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void bBoardsTest() {
-        assertNotNull("BOARDS TEST FAILED: Board array is null", simulatorInterface.getBoards());
-
         BoardInterface[] boards = simulatorInterface.getBoards();
 
-        for(BoardInterface board : boards)
-            assertNull("BOARDS TEST FAILED: Created simulator is not initialized null.", board);
+        assertNotNull("BOARDS TEST FAILED: Board array is null", boards);
 
         BoardInterface boardInterface0 = UTTTFactory.createBoard(),
                        boardInterface1 = UTTTFactory.createBoard(),
@@ -77,8 +75,6 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void cCurrentPlayerTest() {
-        simulatorInterface = UTTTFactory.createSimulator();
-
         //No need to test if the right player starts bc it's the job of #run
 
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
@@ -100,11 +96,11 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void dSetMarkTest() {
-        simulatorInterface = UTTTFactory.createSimulator();
-
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
+
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
 
         boolean bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol().flip(), 4, 4);
 
@@ -116,7 +112,9 @@ public class SimulatorInterfaceTest {
 
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not set the right symbol. Right symbol = " + currentSymbol.toString()
                         + ", got " + simulatorInterface.getBoards()[4].getMarks()[4].getSymbol().toString() + ".",
-                simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol && bool);
+                (simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol) && bool);
+
+        assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = true, got false.", bool);
 
         bool = simulatorInterface.setMarkAt(currentSymbol, -1, 4);
         assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
@@ -133,8 +131,6 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void eNextIndexTest() {
-        simulatorInterface = UTTTFactory.createSimulator();
-
         assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == -1);
 
@@ -164,23 +160,18 @@ public class SimulatorInterfaceTest {
 
     @Test
     public void fMovePossibleTest() {
-        simulatorInterface = UTTTFactory.createSimulator();
         BoardInterface[] boards = new BoardInterface[9];
 
         for(int k = 0; k < 9; k++)
             boards[k] = UTTTFactory.createBoard();
 
         simulatorInterface.setBoards(boards);
-
+        simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
         simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 0, 1);
 
         for(int i = 0; i < 9; i++)
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
                 simulatorInterface.isMovePossible(1, i));
-
-        simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 1, 8);
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is possible when it is not. Set board index = 1, checked (1,0)",
-                !simulatorInterface.isMovePossible(1, 0));
     }
 
     @Test
@@ -199,9 +190,9 @@ public class SimulatorInterfaceTest {
                 simulatorInterface.setBoards(boards);
 
                 for(int k = 0; k < 3; k++) {
-                    simulatorInterface.setMarkAt(symbol, j, k);
-                    simulatorInterface.setMarkAt(symbol, j + 3, k);
-                    simulatorInterface.setMarkAt(symbol, j + 6, k);
+                    simulatorInterface.getBoards()[j].setMarkAt(symbol, k);
+                    simulatorInterface.getBoards()[j + 3].setMarkAt(symbol, k);
+                    simulatorInterface.getBoards()[j + 6].setMarkAt(symbol, k);
                 }
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
@@ -221,9 +212,9 @@ public class SimulatorInterfaceTest {
                 simulatorInterface.setBoards(boards);
 
                 for(int k = 0; k < 3; k++) {
-                    simulatorInterface.setMarkAt(symbol, j * 3, k);
-                    simulatorInterface.setMarkAt(symbol, j * 3 + 1, k);
-                    simulatorInterface.setMarkAt(symbol, j * 3 + 2, k);
+                    simulatorInterface.getBoards()[j * 3].setMarkAt(symbol, k);
+                    simulatorInterface.getBoards()[j * 3 + 1].setMarkAt(symbol, k);
+                    simulatorInterface.getBoards()[j * 3 + 2].setMarkAt(symbol, k);
                 }
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
@@ -242,9 +233,9 @@ public class SimulatorInterfaceTest {
             simulatorInterface.setBoards(boards);
 
             for(int k = 0; k < 3; k++) {
-                simulatorInterface.setMarkAt(symbol, 0, k);
-                simulatorInterface.setMarkAt(symbol, 4, k);
-                simulatorInterface.setMarkAt(symbol, 8, k);
+                simulatorInterface.getBoards()[0].setMarkAt(symbol, k);
+                simulatorInterface.getBoards()[4].setMarkAt(symbol, k);
+                simulatorInterface.getBoards()[8].setMarkAt(symbol, k);
             }
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
@@ -262,9 +253,9 @@ public class SimulatorInterfaceTest {
             simulatorInterface.setBoards(boards);
 
             for(int k = 0; k < 3; k++) {
-                simulatorInterface.setMarkAt(symbol, 2, k);
-                simulatorInterface.setMarkAt(symbol, 4, k);
-                simulatorInterface.setMarkAt(symbol, 6, k);
+                simulatorInterface.getBoards()[2].setMarkAt(symbol, k);
+                simulatorInterface.getBoards()[4].setMarkAt(symbol, k);
+                simulatorInterface.getBoards()[6].setMarkAt(symbol, k);
             }
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
@@ -301,15 +292,15 @@ public class SimulatorInterfaceTest {
         simulatorInterface.setBoards(boards);
 
         for(int k = 0; k < 3; k++) {
-            simulatorInterface.setMarkAt(Symbol.CROSS, 0, k);
-            simulatorInterface.setMarkAt(Symbol.CROSS, 1, k);
-            simulatorInterface.setMarkAt(Symbol.CIRCLE, 2, k);
-            simulatorInterface.setMarkAt(Symbol.CROSS, 3, k);
-            simulatorInterface.setMarkAt(Symbol.CROSS, 4, k);
-            simulatorInterface.setMarkAt(Symbol.CIRCLE, 5, k);
-            simulatorInterface.setMarkAt(Symbol.CIRCLE, 6, k);
-            simulatorInterface.setMarkAt(Symbol.CIRCLE, 7, k);
-            simulatorInterface.setMarkAt(Symbol.CROSS, 8, k);
+            simulatorInterface.getBoards()[0].setMarkAt(Symbol.CROSS, k);
+            simulatorInterface.getBoards()[1].setMarkAt(Symbol.CROSS, k);
+            simulatorInterface.getBoards()[2].setMarkAt(Symbol.CIRCLE, k);
+            simulatorInterface.getBoards()[3].setMarkAt(Symbol.CIRCLE, k);
+            simulatorInterface.getBoards()[4].setMarkAt(Symbol.CROSS, k);
+            simulatorInterface.getBoards()[5].setMarkAt(Symbol.CROSS, k);
+            simulatorInterface.getBoards()[6].setMarkAt(Symbol.CROSS, k);
+            simulatorInterface.getBoards()[7].setMarkAt(Symbol.CIRCLE, k);
+            simulatorInterface.getBoards()[8].setMarkAt(Symbol.CIRCLE, k);
         }
 
         assertTrue("WINNER TEST FAILED: It is a tie but got as winner symbol " + simulatorInterface.getWinner() + ".",

@@ -2,6 +2,7 @@ package uttt.tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class BoardInterfaceTest {
 
     private BoardInterface boardInterface;
 
-    @Test
+    @Before
     public void aCreateBoardTest() {
         boardInterface = UTTTFactory.createBoard();
 
@@ -25,9 +26,9 @@ public class BoardInterfaceTest {
 
     @Test
     public void bMarksTest() {
-        assertNotNull("MARKS TEST FAILED: #getMarks returns null.", boardInterface.getMarks());
-
         MarkInterface[] boardMarks = boardInterface.getMarks();
+
+        assertNotNull("MARKS TEST FAILED: #getMarks returns null.", boardMarks);
 
         assertTrue("MARKS TEST FAILED: Board marks length not 9. Got a length of " + boardMarks.length + ".", boardMarks.length == 9);
 
