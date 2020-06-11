@@ -318,9 +318,4 @@ public class SimulatorInterfaceTest {
         assertTrue("GAME OVER TEST FAILED: Game has not been identified as over when it is a tie.",
                 simulatorInterface.isGameOver());
     }
-
-    @Test
-    public void hGameOverTest() {
-
-    }
 }

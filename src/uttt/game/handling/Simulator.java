@@ -88,6 +88,9 @@ public class Simulator implements SimulatorInterface {
         if(boardIndex < 0 || boardIndex > 8)
             return false;
 
+        if(indexNextBoard != -1 && boardIndex == indexNextBoard)
+            return false;
+
         BoardInterface board = boards[boardIndex];
 
         if(board.isClosed())
@@ -102,6 +105,15 @@ public class Simulator implements SimulatorInterface {
 
     @Override
     public boolean isMovePossible(int boardIndex, int markIndex) throws IllegalArgumentException {
+        if(boardIndex < 0 || boardIndex > 8)
+            return false;
+
+        if(markIndex < 0 || markIndex > 8)
+            return false;
+
+        if(indexNextBoard != -1 && boardIndex != indexNextBoard)
+            return false;
+
         if(boards[boardIndex].isClosed())
             return false;
 
@@ -137,8 +149,6 @@ public class Simulator implements SimulatorInterface {
     public void run(PlayerInterface playerOne, PlayerInterface playerTwo, UserInterface ui) throws IllegalArgumentException {
         setCurrentPlayerSymbol(Symbol.CROSS);
 
-        //TODO: Log and debug
-
         while(!isGameOver()) {
             PlayerInterface currentPlayer = playerOne.getSymbol() == currentSymbol ? playerOne : playerTwo;
             Move move = currentPlayer.getPlayerMove(this, ui);
@@ -146,5 +156,7 @@ public class Simulator implements SimulatorInterface {
             setMarkAt(currentSymbol, move.getBoardIndex(), move.getMarkIndex());
             ui.updateScreen(this);
         }
+
+        ui.showGameOverScreen(this);
     }
 }
