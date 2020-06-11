@@ -11,7 +11,7 @@ import uttt.UTTTFactory;
 import uttt.utils.Symbol;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarkInterfaceTest {
+public class MarkTest {
 
     @Test
     public void aCreateMarkTest() {

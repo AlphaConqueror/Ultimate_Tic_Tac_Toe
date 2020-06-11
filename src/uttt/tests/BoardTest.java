@@ -13,7 +13,7 @@ import uttt.game.MarkInterface;
 import uttt.utils.Symbol;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class BoardInterfaceTest {
+public class BoardTest {
 
     private BoardInterface boardInterface;
 

@@ -1,19 +1,19 @@
 package uttt.tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-
 import org.junit.runners.MethodSorters;
 import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
 import uttt.game.SimulatorInterface;
 import uttt.utils.Symbol;
 
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SimulatorInterfaceTest {
+public class SimulatorTest {
 
     private SimulatorInterface simulatorInterface;
 
@@ -31,9 +31,9 @@ public class SimulatorInterfaceTest {
         assertNotNull("BOARDS TEST FAILED: Board array is null", boards);
 
         BoardInterface boardInterface0 = UTTTFactory.createBoard(),
-                       boardInterface1 = UTTTFactory.createBoard(),
-                       boardInterface2 = UTTTFactory.createBoard(),
-                       boardInterface3 = UTTTFactory.createBoard();
+                boardInterface1 = UTTTFactory.createBoard(),
+                boardInterface2 = UTTTFactory.createBoard(),
+                boardInterface3 = UTTTFactory.createBoard();
 
         boardInterface0.setMarkAt(Symbol.CROSS, 0);
         boardInterface1.setMarkAt(Symbol.CIRCLE, 2);
@@ -41,8 +41,8 @@ public class SimulatorInterfaceTest {
         boardInterface3.setMarkAt(Symbol.CIRCLE, 8);
 
         simulatorInterface.setBoards(new BoardInterface[] {boardInterface0, null, boardInterface1,
-                                                           null, null, null,
-                                                           boardInterface2, null, boardInterface3});
+                null, null, null,
+                boardInterface2, null, boardInterface3});
 
         boards = simulatorInterface.getBoards();
 
@@ -78,8 +78,8 @@ public class SimulatorInterfaceTest {
         //No need to test if the right player starts bc it's the job of #run
 
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
-                                                           UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
-                                                           UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
+                UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
+                UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
 
         simulatorInterface.setCurrentPlayerSymbol(Symbol.CIRCLE);
 
@@ -171,7 +171,7 @@ public class SimulatorInterfaceTest {
 
         for(int i = 0; i < 9; i++)
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
-                simulatorInterface.isMovePossible(1, i));
+                    simulatorInterface.isMovePossible(1, i));
 
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) with 1st argument out of bounds did not return false.",
                 !simulatorInterface.isMovePossible(-1));
@@ -206,7 +206,7 @@ public class SimulatorInterfaceTest {
                 }
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
-                                + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                        + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
                 assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
                         simulatorInterface.isGameOver());
             }
@@ -228,7 +228,7 @@ public class SimulatorInterfaceTest {
                 }
 
                 assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
-                                + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                        + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
                 assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
                         simulatorInterface.isGameOver());
             }
@@ -249,7 +249,7 @@ public class SimulatorInterfaceTest {
             }
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
-                            + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                    + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
             assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
                     simulatorInterface.isGameOver());
 
@@ -269,7 +269,7 @@ public class SimulatorInterfaceTest {
             }
 
             assertTrue("WINNER TEST FAILED: Right winner = " + symbol.toString() + ", got winner "
-                            + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
+                    + simulatorInterface.getWinner().toString() + ".", simulatorInterface.getWinner() == symbol);
             assertTrue("GAME OVER TEST FAILED: Game has not been identified as over.",
                     simulatorInterface.isGameOver());
         }
