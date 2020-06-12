@@ -15,18 +15,15 @@ public class Board implements BoardInterface {
             marks[i] = UTTTFactory.createMark(Symbol.EMPTY, i);
     }
 
-    @Override
     public MarkInterface[] getMarks() {
         return marks;
     }
 
-    @Override
-    public void setMarks(MarkInterface[] marks) throws IllegalArgumentException {
+    public void setMarks(MarkInterface[] marks) {
         this.marks = marks;
     }
 
-    @Override
-    public boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException {
+    public boolean setMarkAt(Symbol symbol, int markIndex) {
         if(marks[markIndex].getSymbol() == Symbol.EMPTY) {
             marks[markIndex].setSymbol(symbol);
             return true;
@@ -35,7 +32,6 @@ public class Board implements BoardInterface {
         return false;
     }
 
-    @Override
     public boolean isClosed() {
         if(getWinner() != Symbol.EMPTY)
             return true;
@@ -47,8 +43,7 @@ public class Board implements BoardInterface {
         return true;
     }
 
-    @Override
-    public boolean isMovePossible(int markIndex) throws IllegalArgumentException {
+    public boolean isMovePossible(int markIndex) {
         if(markIndex < 0 || markIndex > 8)
             return false;
 
@@ -58,7 +53,6 @@ public class Board implements BoardInterface {
         return marks[markIndex].getSymbol() == Symbol.EMPTY ? true : false;
     }
 
-    @Override
     public Symbol getWinner() {
         for(int i = 0; i < 2; i++) {
             Symbol symbol = (i == 0) ? Symbol.CROSS : Symbol.CIRCLE;

@@ -6,24 +6,19 @@ import uttt.game.UserInterface;
 import uttt.utils.Move;
 import uttt.utils.Symbol;
 
-public class Player implements PlayerInterface {
+public class Bot implements PlayerInterface {
 
     private Symbol symbol;
 
-    public Player(Symbol symbol) {
+    public Bot(Symbol symbol) {
         this.symbol = symbol;
     }
 
     public Symbol getSymbol() {
-        return symbol;
+        return null;
     }
 
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
-        Move move = ui.getUserMove();
-
-        if(game.isMovePossible(move.getBoardIndex(), move.getMarkIndex()))
-            return move;
-
-        return getPlayerMove(game, ui);
+        return null;
     }
 }

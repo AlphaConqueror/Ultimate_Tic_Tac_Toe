@@ -13,18 +13,15 @@ public class Mark implements MarkInterface {
         this.position = position;
     }
 
-    @Override
     public Symbol getSymbol() {
         return symbol;
     }
 
-    @Override
     public int getPosition() {
         return position;
     }
 
-    @Override
-    public void setSymbol(Symbol symbol) throws IllegalArgumentException {
+    public void setSymbol(Symbol symbol) {
         this.symbol = symbol;
     }
 }

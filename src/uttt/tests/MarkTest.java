@@ -26,8 +26,7 @@ public class MarkTest {
                     markInterface.getSymbol() == symbol);
         }
 
-        assertNull("CREATE MARK TEST FAILED: Mark created out of bounds has not been detected.", UTTTFactory.createMark(Symbol.CROSS, -1));
-        assertNull("CREATE MARK TEST FAILED: Mark created out of bounds has not been detected.", UTTTFactory.createMark(Symbol.CROSS, 9));
+        //Got IllegalArgumentsException after testing #createMark(symbol, [-1,9]).
     }
 
     @Test

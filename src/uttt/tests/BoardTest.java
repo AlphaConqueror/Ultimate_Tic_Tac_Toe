@@ -35,13 +35,9 @@ public class BoardTest {
         for(MarkInterface mark : boardMarks)
             assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() == Symbol.EMPTY);
 
-        MarkInterface markInterface0 = UTTTFactory.createMark(Symbol.CIRCLE, 0),
-                      markInterface1 = UTTTFactory.createMark(Symbol.CROSS, 4),
-                      markInterface2 = UTTTFactory.createMark(Symbol.CIRCLE, 8);
-
-        MarkInterface[] marks = {markInterface0, null, null,
-                                 null, markInterface1, null,
-                                 null, null, markInterface2};
+        MarkInterface[] marks = {UTTTFactory.createMark(Symbol.CIRCLE, 0), UTTTFactory.createMark(Symbol.EMPTY, 1), UTTTFactory.createMark(Symbol.EMPTY, 2),
+                                 UTTTFactory.createMark(Symbol.EMPTY, 3), UTTTFactory.createMark(Symbol.CROSS, 4), UTTTFactory.createMark(Symbol.EMPTY, 5),
+                                 UTTTFactory.createMark(Symbol.EMPTY, 6), UTTTFactory.createMark(Symbol.EMPTY, 7), UTTTFactory.createMark(Symbol.CIRCLE, 8)};
 
         boardInterface.setMarks(marks);
 
