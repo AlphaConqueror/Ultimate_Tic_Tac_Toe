@@ -15,10 +15,12 @@ public class Bot implements PlayerInterface {
     }
 
     public Symbol getSymbol() {
-        return null;
+        return symbol;
     }
 
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
+
+
         return null;
     }
 }

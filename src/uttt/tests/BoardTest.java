@@ -51,8 +51,6 @@ public class BoardTest {
 
         for(int i = 0; i < 9; i++) {
             assertNotNull("MARKS TEST FAILED: Board marks at index " + i + " returns null.", boardMarks[i]);
-            assertTrue("MARKS TEST FAILED: Empty cell does not return mark interface with symbol EMPTY.",
-                    marks[i] == null && boardMarks[i].getSymbol() == Symbol.EMPTY);
             assertTrue("MARKS TEST FAILED: mark (Symbol = " + marks[i].getSymbol() + ", pos = " + marks[i].getPosition() + ") does not equal "
                             + "mark (Symbol = " + boardMarks[i].getSymbol() + ", pos = " + boardMarks[i].getPosition() + ").",
                     marks[i].equals(boardMarks[i]));
@@ -103,10 +101,12 @@ public class BoardTest {
                         UTTTFactory.createMark(Symbol.EMPTY, 6), UTTTFactory.createMark(Symbol.EMPTY, 7), UTTTFactory.createMark(Symbol.CIRCLE, 8)});
 
         for(MarkInterface mark : boardInterface.getMarks()) {
-            assertTrue("MOVE POSSIBLE TEST FAILED: Move is possible but got move is not possible.",
-                    mark.getSymbol() == Symbol.EMPTY && boardInterface.isMovePossible(mark.getPosition()));
-            assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
-                    mark.getSymbol() != Symbol.EMPTY && !boardInterface.isMovePossible(mark.getPosition()));
+            if(mark.getSymbol() == Symbol.EMPTY)
+                assertTrue("MOVE POSSIBLE TEST FAILED: Move is possible but got move is not possible.",
+                        boardInterface.isMovePossible(mark.getPosition()));
+            else
+                assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
+                        !boardInterface.isMovePossible(mark.getPosition()));
         }
 
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible does not return false when arguments out of bounds.",

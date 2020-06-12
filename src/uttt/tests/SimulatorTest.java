@@ -103,25 +103,21 @@ public class SimulatorTest {
         //Got IllegalArgumentsException after testing #setMarkAt with wrong player symbol.
 
         Symbol currentSymbol = simulatorInterface.getCurrentPlayerSymbol();
-        boolean bool = simulatorInterface.setMarkAt(currentSymbol, 4, 4);
+        boolean bool = simulatorInterface.setMarkAt(currentSymbol, 4, 3);
 
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not set the right symbol. Right symbol = " + currentSymbol.toString()
-                        + ", got " + simulatorInterface.getBoards()[4].getMarks()[4].getSymbol().toString() + ".",
-                (simulatorInterface.getBoards()[4].getMarks()[4].getSymbol() == currentSymbol) && bool);
-
+                        + ", got " + simulatorInterface.getBoards()[4].getMarks()[3].getSymbol().toString() + ".",
+                (simulatorInterface.getBoards()[4].getMarks()[3].getSymbol() == currentSymbol));
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = true, got false.", bool);
 
-        bool = simulatorInterface.setMarkAt(currentSymbol, -1, 4);
-        assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
+        bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 4, 2);
 
-        bool = simulatorInterface.setMarkAt(currentSymbol, 9, 4);
-        assertTrue("SET MARK TEST FAILED: #setMarkAt boardIndex out of bounds. Bounds = [0, 8], got 9.", !bool);
+        assertTrue("SET MARK TEST FAILED: #setMarkAt set the symbol even tho the board index =/= next index. Right index = "
+                        + simulatorInterface.getIndexNextBoard() + ", got index 4.",
+                (simulatorInterface.getBoards()[4].getMarks()[2].getSymbol() == Symbol.EMPTY));
+        assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = false, got true.", !bool);
 
-        bool = simulatorInterface.setMarkAt(currentSymbol, 4, -1);
-        assertTrue("SET MARK TEST FAILED: #setMarkAt marIndex out of bounds. Bounds = [0, 8], got -1.", !bool);
-
-        bool = simulatorInterface.setMarkAt(currentSymbol, 4, 9);
-        assertTrue("SET MARK TEST FAILED: #setMarkAt markIndex out of bounds. Bounds = [0, 8], got 9.", !bool);
+        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
     @Test
@@ -169,11 +165,7 @@ public class SimulatorTest {
                     simulatorInterface.isMovePossible(1, i));
 
         //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
-
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(m,b) with 1st argument out of bounds did not return false.",
-                !simulatorInterface.isMovePossible(1, -1));
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(m,b) with 1st argument out of bounds did not return false.",
-                !simulatorInterface.isMovePossible(1, 9));
+        //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).
     }
 
     @Test
