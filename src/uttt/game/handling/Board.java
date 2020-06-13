@@ -24,6 +24,9 @@ public class Board implements BoardInterface {
     }
 
     public boolean setMarkAt(Symbol symbol, int markIndex) {
+        if(markIndex < 0 || markIndex > 8)
+            return false;
+
         if(marks[markIndex].getSymbol() == Symbol.EMPTY) {
             marks[markIndex].setSymbol(symbol);
             return true;

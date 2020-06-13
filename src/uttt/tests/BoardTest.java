@@ -79,13 +79,6 @@ public class BoardTest {
                 assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is false, got true.", !bool);
         }
 
-        boardInterface = UTTTFactory.createBoard();
-
-        boolean bool = boardInterface.setMarkAt(Symbol.CROSS, -1);
-        assertTrue("MARKS TEST FAILED: #setMarkAt index out of bounds. Bounds = [0, 8], got -1.", !bool);
-
-        bool = boardInterface.setMarkAt(Symbol.CROSS, 9);
-        assertTrue("MARKS TEST FAILED: #setMarkAt index out of bounds. Bounds = [0, 8], got 9.", !bool);
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
 
