@@ -73,7 +73,7 @@ public class BoardTest {
                                 + ", got symbol " + markSymbol.toString(),
                         markSymbol == newSymbol);
             else
-                assertTrue("MARKS TEST FAILED: Occupied mark has been changed.", symbol != markSymbol);
+                assertTrue("MARKS TEST FAILED: Occupied mark has been changed.", symbol == markSymbol);
 
             if(symbol != newSymbol && newSymbol == markSymbol)
                 assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is true, got false.", bool);
