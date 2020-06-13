@@ -79,6 +79,18 @@ public class BoardTest {
                 assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is false, got true.", !bool);
         }
 
+        boolean gotException = false;
+
+        try {
+            boardInterface.setMarkAt(Symbol.CROSS, -1);
+            boardInterface.setMarkAt(Symbol.CROSS, 9);
+            boardInterface.setMarkAt(null, 0);
+        } catch (IllegalArgumentException e) {
+            gotException = true;
+        }
+
+        assertTrue("MARKS TEST FAILED: #setMarkAt did not throw an IllegalArgumentsException.", gotException);
+
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
 
@@ -97,6 +109,17 @@ public class BoardTest {
                 assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
                         !boardInterface.isMovePossible(mark.getPosition()));
         }
+
+        boolean gotException = false;
+
+        try {
+            boardInterface.isMovePossible(-1);
+            boardInterface.isMovePossible(9);
+        } catch (IllegalArgumentException e) {
+            gotException = true;
+        }
+
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible([-1,9]) did not throw an IllegalArgumentsException.", gotException);
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }

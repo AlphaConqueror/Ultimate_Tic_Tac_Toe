@@ -117,6 +117,18 @@ public class SimulatorTest {
                 (simulatorInterface.getBoards()[4].getMarks()[2].getSymbol() == Symbol.EMPTY));
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = false, got true.", !bool);
 
+        boolean gotException = false;
+
+        try {
+            simulatorInterface.setMarkAt(null, 0, 0);
+            simulatorInterface.setMarkAt(Symbol.CROSS, -1, -1);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 9, 9);
+        } catch (IllegalArgumentException e) {
+            gotException = true;
+        }
+
+        assertTrue("SET MARK TEST FAILED: #setMarkAt(null, 0, 0) did not throw an IllegalArgumentsException.", gotException);
+
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
@@ -163,6 +175,25 @@ public class SimulatorTest {
         for(int i = 0; i < 9; i++)
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
                     simulatorInterface.isMovePossible(1, i));
+
+        boolean bool = simulatorInterface.isMovePossible(0);
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) returned the wrong boolean.", !bool);
+
+        bool = simulatorInterface.isMovePossible(0, 1);
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m) returned the wrong boolean.", !bool);
+
+        boolean gotException = false;
+
+        try {
+            simulatorInterface.isMovePossible(-1);
+            simulatorInterface.isMovePossible(9);
+            simulatorInterface.isMovePossible(0, -1);
+            simulatorInterface.isMovePossible(0, 9);
+        } catch (IllegalArgumentException e) {
+            gotException = true;
+        }
+
+        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible([0], [-1,9]) did not throw an IllegalArgumentsException.", gotException);
 
         //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
         //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).

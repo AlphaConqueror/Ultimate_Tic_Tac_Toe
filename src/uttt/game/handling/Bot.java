@@ -6,6 +6,8 @@ import uttt.game.handling.ai.MoveValuation;
 import uttt.utils.Move;
 import uttt.utils.Symbol;
 
+import java.sql.SQLOutput;
+
 public class Bot implements PlayerInterface {
 
     private Symbol symbol;
@@ -21,15 +23,19 @@ public class Bot implements PlayerInterface {
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
         Move move = null;
         MoveValuation moveValuation = null;
+        int nextBoardIndex = getNextBoardIndex(game);
 
-        for(MarkInterface mark : game.getBoards()[game.getIndexNextBoard()].getMarks()) {
+        for(MarkInterface mark : game.getBoards()[nextBoardIndex].getMarks()) {
             if(mark.getSymbol() == Symbol.EMPTY) {
-                BoardInterface clone = Board.cloneBoard(game.getBoards()[game.getIndexNextBoard()]);
+                BoardInterface clone = Board.cloneBoard(game.getBoards()[nextBoardIndex]);
 
                 clone.setMarkAt(symbol, mark.getPosition());
 
-                Move nextMove = new Move(game.getIndexNextBoard(), mark.getPosition());
+                Move nextMove = new Move(nextBoardIndex, mark.getPosition());
                 MoveValuation nextMoveValuation = AIHandler.getNextMove(clone, 0, symbol, symbol.flip());
+
+                System.out.println("Bot next possible move: " + nextMove.toString());
+                System.out.println("Bot next possible move valuation: " + nextMoveValuation.toString());
 
                 if(move == null) {
                     move = nextMove;
@@ -44,6 +50,23 @@ public class Bot implements PlayerInterface {
             }
         }
 
+        System.out.println("Next bot move: " + move.toString());
+        System.out.println("Next bot move valuation: " + moveValuation.toString());
+
         return move;
+    }
+
+    private int getNextBoardIndex(SimulatorInterface game) {
+        int nextIndex = game.getIndexNextBoard();
+        BoardInterface[] boards = game.getBoards();
+
+        if(nextIndex != -1 && !boards[nextIndex].isClosed())
+            return nextIndex;
+
+        for(int i = 0; i < 9; i++)
+            if(!boards[i].isClosed())
+                return i;
+
+        return -1;
     }
 }

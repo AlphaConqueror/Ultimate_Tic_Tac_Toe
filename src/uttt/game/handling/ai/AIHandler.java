@@ -18,30 +18,25 @@ public class AIHandler {
         List<MoveValuation> moveValuations = new ArrayList<>();
         MarkInterface[] emptyMarks = getEmptyMarks(board);
 
-        //TODO: Stop if won or lost
-        //TODO: Don't focus on winning only but on defending too.
-
         if(emptyMarks.length > 1) {
             for (MarkInterface mark : emptyMarks) {
                 if (mark.getSymbol() == Symbol.EMPTY) {
                     BoardInterface boardClone = Board.cloneBoard(board);
 
                     boardClone.setMarkAt(currentSymbol, mark.getPosition());
-                    System.out.println("Added to list.");
-                    moveValuations.add(getNextMove(boardClone, depth + 1, playerSymbol, currentSymbol.flip()));
-                    System.out.println("Current size of list = " + moveValuations.size());
+
+                    if(boardClone.getWinner() == Symbol.EMPTY)
+                        moveValuations.add(getNextMove(boardClone, depth + 1, playerSymbol, currentSymbol.flip()));
+                    else
+                        moveValuations.add(new MoveValuation(depth, boardClone.getWinner() == playerSymbol ? 1 : 0));
                 }
             }
         } else {
             BoardInterface boardClone = Board.cloneBoard(board);
 
             boardClone.setMarkAt(currentSymbol, emptyMarks[0].getPosition());
-            System.out.println("Added to list.");
             moveValuations.add(new MoveValuation(depth, board.getWinner() == playerSymbol ? 1 : 0));
-            System.out.println("Current size of list = " + moveValuations.size());
         }
-
-        System.out.println("Size of list = " + moveValuations.size());
 
         return getWorstCaseMove(moveValuations.toArray(new MoveValuation[0]), playerSymbol, currentSymbol);
     }

@@ -26,6 +26,18 @@ public class MarkTest {
                     markInterface.getSymbol() == symbol);
         }
 
+        boolean gotException = false;
+
+        try {
+            UTTTFactory.createMark(Symbol.CROSS, -1);
+            UTTTFactory.createMark(Symbol.CROSS, 9);
+            UTTTFactory.createMark(null, 0);
+        } catch (IllegalArgumentException e) {
+            gotException = true;
+        }
+
+        assertTrue("CREATE MARKS TEST FAILED: #createMark(s, [-1,9]) did not throw an IllegalArgumentsException.", gotException);
+
         //Got IllegalArgumentsException after testing #createMark(symbol, [-1,9]).
     }
 

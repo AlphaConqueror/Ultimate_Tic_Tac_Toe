@@ -16,4 +16,9 @@ public class MoveValuation {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public String toString() {
+        return "Move valuation [Score: " + score + ", depth: " + depth + "]";
+    }
 }
