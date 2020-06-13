@@ -76,4 +76,17 @@ public class Board implements BoardInterface {
 
         return Symbol.EMPTY;
     }
+
+    public static BoardInterface cloneBoard(BoardInterface board) {
+        BoardInterface clone = UTTTFactory.createBoard();
+        MarkInterface[] boardMarks = board.getMarks(),
+                cloneMarks = new MarkInterface[9];
+
+        for(int i = 0; i < 9; i++)
+            cloneMarks[i] = UTTTFactory.createMark(boardMarks[i].getSymbol(), boardMarks[i].getPosition());
+
+        clone.setMarks(cloneMarks);
+
+        return clone;
+    }
 }

@@ -15,7 +15,7 @@ public class Main {
 	 * If set to true a human will be playing the game, otherwise a computer player
 	 * as player two. However, command line arguments will override this choice.
 	 */
-	private static final boolean DEFAULT_USE_HUMAN_PLAYER_TWO = true;
+	private static final boolean DEFAULT_USE_HUMAN_PLAYER_TWO = false;
 
 	/**
 	 * If set to true the user will be asked what player should be chosen.

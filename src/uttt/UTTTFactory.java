@@ -1,10 +1,7 @@
 package uttt;
 
 import uttt.game.*;
-import uttt.game.handling.Board;
-import uttt.game.handling.Mark;
-import uttt.game.handling.Player;
-import uttt.game.handling.Simulator;
+import uttt.game.handling.*;
 import uttt.ui.GUI;
 import uttt.utils.Symbol;
 
@@ -77,6 +74,6 @@ public class UTTTFactory {
 	 *         same as for the tournament.
 	 */
 	public static PlayerInterface createBonusPlayer(Symbol symbol) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		return new Bot(symbol);
 	}
 }

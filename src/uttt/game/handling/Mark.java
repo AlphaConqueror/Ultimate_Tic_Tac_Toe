@@ -1,5 +1,6 @@
 package uttt.game.handling;
 
+import uttt.UTTTFactory;
 import uttt.game.MarkInterface;
 import uttt.utils.Symbol;
 

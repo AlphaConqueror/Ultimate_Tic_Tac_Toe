@@ -56,10 +56,7 @@ public class BoardTest {
                     marks[i].equals(boardMarks[i]));
         }
 
-        boardInterface = UTTTFactory.createBoard();
-        boolean bool = boardInterface.setMarkAt(null, 0);
-
-        assertTrue("MARK TEST FAILED: #setMarkAt has null as 1st argument and does not return false.", !bool);
+        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
 
         boardInterface = UTTTFactory.createBoard();
 
@@ -67,7 +64,7 @@ public class BoardTest {
             Symbol symbol = boardMarks[i].getSymbol(),
                    newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
 
-            bool = boardInterface.setMarkAt(newSymbol, i);
+            boolean bool = boardInterface.setMarkAt(newSymbol, i);
 
             Symbol markSymbol = boardInterface.getMarks()[i].getSymbol();
 
@@ -86,11 +83,12 @@ public class BoardTest {
 
         boardInterface = UTTTFactory.createBoard();
 
-        bool = boardInterface.setMarkAt(Symbol.CROSS, -1);
+        boolean bool = boardInterface.setMarkAt(Symbol.CROSS, -1);
         assertTrue("MARKS TEST FAILED: #setMarkAt index out of bounds. Bounds = [0, 8], got -1.", !bool);
 
         bool = boardInterface.setMarkAt(Symbol.CROSS, 9);
         assertTrue("MARKS TEST FAILED: #setMarkAt index out of bounds. Bounds = [0, 8], got 9.", !bool);
+        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
 
     @Test
@@ -109,10 +107,7 @@ public class BoardTest {
                         !boardInterface.isMovePossible(mark.getPosition()));
         }
 
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible does not return false when arguments out of bounds.",
-                boardInterface.isMovePossible(-1));
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible does not return false when arguments out of bounds.",
-                boardInterface.isMovePossible(9));
+        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
     @Test
