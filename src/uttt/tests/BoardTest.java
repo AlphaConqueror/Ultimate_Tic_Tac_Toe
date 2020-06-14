@@ -25,7 +25,7 @@ public class BoardTest {
     }
 
     @Test
-    public void bMarksTest() {
+    public void bMarksTest() throws IllegalArgumentException {
         MarkInterface[] boardMarks = boardInterface.getMarks();
 
         assertNotNull("MARKS TEST FAILED: #getMarks returns null.", boardMarks);
@@ -86,7 +86,7 @@ public class BoardTest {
     }
 
     @Test
-    public void cMovePossibleTest() {
+    public void cMovePossibleTest() throws IllegalArgumentException {
         boardInterface.setMarks(
                 new MarkInterface[] {UTTTFactory.createMark(Symbol.CROSS, 0), UTTTFactory.createMark(Symbol.EMPTY, 1), UTTTFactory.createMark(Symbol.EMPTY, 2),
                         UTTTFactory.createMark(Symbol.CROSS, 3), UTTTFactory.createMark(Symbol.EMPTY, 4), UTTTFactory.createMark(Symbol.CIRCLE, 5),

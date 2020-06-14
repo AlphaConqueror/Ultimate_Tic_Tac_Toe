@@ -93,7 +93,7 @@ public class SimulatorTest {
     }
 
     @Test
-    public void dSetMarkTest() {
+    public void dSetMarkTest() throws IllegalArgumentException {
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
@@ -153,7 +153,7 @@ public class SimulatorTest {
     }
 
     @Test
-    public void fMovePossibleTest() {
+    public void fMovePossibleTest() throws IllegalArgumentException {
         BoardInterface[] boards = new BoardInterface[9];
 
         for(int k = 0; k < 9; k++)
