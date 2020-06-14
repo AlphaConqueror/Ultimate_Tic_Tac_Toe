@@ -8,7 +8,7 @@ import uttt.utils.Symbol;
 
 public class Player implements PlayerInterface {
 
-    private Symbol symbol;
+    private final Symbol symbol;
 
     public Player(Symbol symbol) {
         this.symbol = symbol;

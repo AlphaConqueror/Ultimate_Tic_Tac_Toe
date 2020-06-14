@@ -2,9 +2,9 @@ package uttt.utils;
 
 public class Move {
 
-	private int boardIndex;
+	private final int boardIndex;
 
-	private int markIndex;
+	private final int markIndex;
 
 	public Move(int boardIndex, int markIndex) {
 		this.boardIndex = boardIndex;
@@ -44,8 +44,6 @@ public class Move {
 		Move other = (Move) obj;
 		if (boardIndex != other.boardIndex)
 			return false;
-		if (markIndex != other.markIndex)
-			return false;
-		return true;
-	}
+        return markIndex == other.markIndex;
+    }
 }

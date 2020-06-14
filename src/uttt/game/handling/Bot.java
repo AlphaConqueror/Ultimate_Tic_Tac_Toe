@@ -6,11 +6,9 @@ import uttt.game.handling.ai.MoveValuation;
 import uttt.utils.Move;
 import uttt.utils.Symbol;
 
-import java.sql.SQLOutput;
-
 public class Bot implements PlayerInterface {
 
-    private Symbol symbol;
+    private final Symbol symbol;
 
     public Bot(Symbol symbol) {
         this.symbol = symbol;

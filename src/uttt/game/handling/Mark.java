@@ -7,7 +7,7 @@ import uttt.utils.Symbol;
 public class Mark implements MarkInterface {
 
     private Symbol symbol;
-    private int position;
+    private final int position;
 
     public Mark(Symbol symbol, int position) throws IllegalArgumentException {
         if(position < 0 || position > 8)

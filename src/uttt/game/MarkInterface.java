@@ -9,21 +9,21 @@ public interface MarkInterface {
 	 * 
 	 * @return The symbol of the mark.
 	 */
-	public Symbol getSymbol();
+    Symbol getSymbol();
 
 	/**
 	 * Get the position of the mark.
 	 * 
 	 * @return The position of the mark on its board.
 	 */
-	public int getPosition();
+    int getPosition();
 
 	/**
 	 * Set the symbol of the mark.
 	 * 
 	 * @param symbol The symbol to which the mark shall be assigned.
 	 */
-	public void setSymbol(Symbol symbol) throws IllegalArgumentException;
+    void setSymbol(Symbol symbol) throws IllegalArgumentException;
 
 	/**
 	 * Overrides: hashCode() in Object
@@ -33,7 +33,7 @@ public interface MarkInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public int hashCode();
+    int hashCode();
 
 	/**
 	 * Overrides: equals(...) in Object
@@ -45,5 +45,5 @@ public interface MarkInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public boolean equals(Object obj);
+    boolean equals(Object obj);
 }

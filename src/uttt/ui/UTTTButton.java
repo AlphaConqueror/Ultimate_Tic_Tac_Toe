@@ -12,7 +12,7 @@ public class UTTTButton extends JButton {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Move move;
+	private final Move move;
 
 	public UTTTButton(int boardIndex, int pieceIndex) { // creating blank board
 		move = new Move(boardIndex, pieceIndex);

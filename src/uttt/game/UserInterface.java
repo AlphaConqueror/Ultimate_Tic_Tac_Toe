@@ -9,21 +9,21 @@ public interface UserInterface {
 	 * 
 	 * @return The move direction chosen by the user.
 	 */
-	public Move getUserMove();
+    Move getUserMove();
 
 	/**
 	 * Show a "Game Over" screen to the user.
 	 * 
 	 * @param game The current UltimateTicTacToe game instance.
 	 */
-	public void showGameOverScreen(SimulatorInterface game);
+    void showGameOverScreen(SimulatorInterface game);
 
 	/**
 	 * Update the current state of the board visible to the user.
 	 *
 	 * @param game The current UltimateTicTacToe game instance.
 	 */
-	public void updateScreen(SimulatorInterface game);
+    void updateScreen(SimulatorInterface game);
 
 	/**
 	 * Allow the user to answer a specific question.
@@ -37,6 +37,6 @@ public interface UserInterface {
 	 *         test and present your project later. (see also DEBUG_ASK_USER in
 	 *         Main.java).
 	 */
-	public String getUserInput(String string, String[] possibleAnswers);
+    String getUserInput(String string, String[] possibleAnswers);
 
 }

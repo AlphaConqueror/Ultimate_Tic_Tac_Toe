@@ -28,8 +28,8 @@ public class GUI implements UserInterface {
 	private final JPanel[] panels = new JPanel[9]; // create 9 panels
 
 	private Symbol currentPlayer = Symbol.CROSS;
-	private String label = "Turn of Player with Symbol: ";
-	private JLabel jLabel = new JLabel(label + currentPlayer);
+	private final String label = "Turn of Player with Symbol: ";
+	private final JLabel jLabel = new JLabel(label + currentPlayer);
 
 	public GUI() {
 		gamePanel();

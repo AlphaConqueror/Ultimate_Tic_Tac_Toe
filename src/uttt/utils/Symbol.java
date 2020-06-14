@@ -3,7 +3,7 @@ package uttt.utils;
 public enum Symbol {
 	CROSS("X"), CIRCLE("O"), EMPTY(" ");
 
-	private String name;
+	private final String name;
 
 	Symbol(String name) {
 		this.name = name;

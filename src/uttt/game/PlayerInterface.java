@@ -12,7 +12,7 @@ public interface PlayerInterface {
 	 * 
 	 *         Note: Player one uses 'X' and player two uses 'O'.
 	 */
-	public Symbol getSymbol();
+    Symbol getSymbol();
 
 	/**
 	 * Allows the player (human or computer) to choose the next move direction.

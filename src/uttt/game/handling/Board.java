@@ -53,7 +53,7 @@ public class Board implements BoardInterface {
         if(isClosed())
             return false;
 
-        return marks[markIndex].getSymbol() == Symbol.EMPTY ? true : false;
+        return marks[markIndex].getSymbol() == Symbol.EMPTY;
     }
 
     public Symbol getWinner() {

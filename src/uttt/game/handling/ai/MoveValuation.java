@@ -2,7 +2,8 @@ package uttt.game.handling.ai;
 
 public class MoveValuation {
 
-    private int depth, score;
+    private final int depth;
+    private final int score;
 
     public MoveValuation(int depth, int score) {
         this.depth = depth;

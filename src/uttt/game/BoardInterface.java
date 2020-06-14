@@ -11,7 +11,7 @@ public interface BoardInterface {
 	 *
 	 *         Note: Empty cells have marks with symbol 'Empty'.
 	 */
-	public MarkInterface[] getMarks();
+    MarkInterface[] getMarks();
 
 	/**
 	 * Sets all marks on the board.
@@ -19,7 +19,7 @@ public interface BoardInterface {
 	 *
 	 * Note: Convenient for testing. Not allowed to use in the AI.
 	 */
-	public void setMarks(MarkInterface[] marks) throws IllegalArgumentException;
+    void setMarks(MarkInterface[] marks) throws IllegalArgumentException;
 
 	/**
 	 * Sets the symbol of a mark at the given position (markIndex) on the board.
@@ -30,7 +30,7 @@ public interface BoardInterface {
 	 *
 	 * @return If the mark was correctly added.
 	 */
-	public boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException;
+    boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException;
 
 	/**
 	 * Tells if the board is already won by a player or already a tie.
@@ -38,7 +38,7 @@ public interface BoardInterface {
 	 * @return True if a player has won the board or there is no valid move left on
 	 *         the board, false otherwise.
 	 */
-	public boolean isClosed();
+    boolean isClosed();
 
 	/**
 	 * Tells if its possible to add a mark at markIndex.
@@ -47,7 +47,7 @@ public interface BoardInterface {
 	 *
 	 * @return If at position markIndex on this board is a move possible.
 	 */
-	public boolean isMovePossible(int markIndex) throws IllegalArgumentException;
+    boolean isMovePossible(int markIndex) throws IllegalArgumentException;
 
 	/**
 	 * Gets the winner symbol of the board.
@@ -58,7 +58,7 @@ public interface BoardInterface {
 	 *         assigned or 'Empty' if it is a tie. An unfinished board also returns
 	 *         'Empty'.
 	 */
-	public Symbol getWinner();
+    Symbol getWinner();
 
 	/**
 	 * Overrides: hashCode() in Object
@@ -68,7 +68,7 @@ public interface BoardInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public int hashCode();
+    int hashCode();
 
 	/**
 	 * Overrides: equals(...) in Object
@@ -80,5 +80,5 @@ public interface BoardInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public boolean equals(Object obj);
+    boolean equals(Object obj);
 }

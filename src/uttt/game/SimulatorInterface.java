@@ -9,7 +9,7 @@ public interface SimulatorInterface {
 	 * 
 	 * @return The boards on the game-board.
 	 */
-	public BoardInterface[] getBoards();
+	BoardInterface[] getBoards();
 
 	/**
 	 * Sets all boards in the simulator.
@@ -19,14 +19,14 @@ public interface SimulatorInterface {
 	 * @param boards The boards for the simulator.
 	 * 
 	 */
-	public void setBoards(BoardInterface[] boards) throws IllegalArgumentException;
+	void setBoards(BoardInterface[] boards) throws IllegalArgumentException;
 
 	/**
 	 * Gets the symbol of the current player.
 	 * 
 	 * @return The symbol of the current player.
 	 */
-	public Symbol getCurrentPlayerSymbol();
+	Symbol getCurrentPlayerSymbol();
 
 	/**
 	 * Sets the symbol of the current player.
@@ -36,7 +36,7 @@ public interface SimulatorInterface {
 	 * @param symbol The symbol for the current player.
 	 * 
 	 */
-	public void setCurrentPlayerSymbol(Symbol symbol) throws IllegalArgumentException;
+	void setCurrentPlayerSymbol(Symbol symbol) throws IllegalArgumentException;
 
 	/**
 	 * Sets the symbol of a mark at the given position (markIndex) on the
@@ -50,7 +50,7 @@ public interface SimulatorInterface {
 	 * 
 	 * @return If the mark was correctly added.
 	 */
-	public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException;
+	boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException;
 
 	/**
 	 * 
@@ -58,7 +58,7 @@ public interface SimulatorInterface {
 	 * 
 	 *         Note: Returns -1 if there is no restriction for the next move.
 	 */
-	public int getIndexNextBoard();
+	int getIndexNextBoard();
 
 	/**
 	 * 
@@ -69,7 +69,7 @@ public interface SimulatorInterface {
 	 *              Note: index has to satisfy the board boundaries; is allowed to
 	 *              be -1 if the next board is not fixed.
 	 */
-	public void setIndexNextBoard(int index) throws IllegalArgumentException;
+	void setIndexNextBoard(int index) throws IllegalArgumentException;
 
 	/**
 	 * Tells if the game is over.
@@ -77,7 +77,7 @@ public interface SimulatorInterface {
 	 * @return True if a player has won the game or there is no valid move left on
 	 *         the boards, false otherwise.
 	 */
-	public boolean isGameOver();
+	boolean isGameOver();
 
 	/**
 	 * Tells if the next move is possible on board boardIndex according to the rules
@@ -90,7 +90,7 @@ public interface SimulatorInterface {
 	 * 
 	 *         Note: The last mark location is important.
 	 */
-	public boolean isMovePossible(int boardIndex) throws IllegalArgumentException;
+	boolean isMovePossible(int boardIndex) throws IllegalArgumentException;
 
 	/**
 	 * Tells if its possible to add a mark at markIndex on board boardIndex.
@@ -104,7 +104,7 @@ public interface SimulatorInterface {
 	 * 
 	 *         Note: The last mark location is important.
 	 */
-	public boolean isMovePossible(int boardIndex, int markIndex) throws IllegalArgumentException;
+	boolean isMovePossible(int boardIndex, int markIndex) throws IllegalArgumentException;
 
 	/**
 	 * Gets the winner symbol of the game.
@@ -113,7 +113,7 @@ public interface SimulatorInterface {
 	 * 
 	 * @return The symbol of the winner.
 	 */
-	public Symbol getWinner();
+	Symbol getWinner();
 
 	/**
 	 * Runs the game until it is finished. Ensures that the players move
@@ -126,7 +126,7 @@ public interface SimulatorInterface {
 	 * @param playerTwo The second player in the game.
 	 * @param ui        The ui that shows the game.
 	 */
-	public void run(PlayerInterface playerOne, PlayerInterface playerTwo, UserInterface ui)
+	void run(PlayerInterface playerOne, PlayerInterface playerTwo, UserInterface ui)
 			throws IllegalArgumentException;
 
 	/**
@@ -137,7 +137,7 @@ public interface SimulatorInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public int hashCode();
+	int hashCode();
 
 	/**
 	 * Overrides: equals(...) in Object
@@ -149,6 +149,6 @@ public interface SimulatorInterface {
 	 *         Note: Bonus! Not relevant for testing, you do not need to implement
 	 *         this nor to test this method!
 	 */
-	public boolean equals(Object obj);
+	boolean equals(Object obj);
 
 }

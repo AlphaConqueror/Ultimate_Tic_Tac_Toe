@@ -119,16 +119,19 @@ public class SimulatorTest {
 
         boolean gotException = false;
 
-        try {
+        //try {
             simulatorInterface.setMarkAt(null, 0, 0);
             simulatorInterface.setMarkAt(Symbol.CROSS, -1, -1);
             simulatorInterface.setMarkAt(Symbol.CROSS, 9, 9);
-        } catch (IllegalArgumentException e) {
+       /* } catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("SET MARK TEST FAILED: #setMarkAt(null, 0, 0) did not throw an IllegalArgumentsException.");
+            throw new IllegalArgumentException("SET MARK TEST FAILED: #setMarkAt(null, 0, 0) did not throw an IllegalArgumentsException.");*/
+
+        simulatorInterface.setBoards(null);
+        simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
@@ -177,8 +180,6 @@ public class SimulatorTest {
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
                     simulatorInterface.isMovePossible(1, i));
 
-        System.out.println("Current index = " + simulatorInterface.getIndexNextBoard());
-
         boolean bool = simulatorInterface.isMovePossible(0);
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) returned the wrong boolean.", !bool);
 
@@ -187,17 +188,17 @@ public class SimulatorTest {
 
         boolean gotException = false;
 
-        try {
+        //try {
             simulatorInterface.isMovePossible(-1);
             simulatorInterface.isMovePossible(9);
             simulatorInterface.isMovePossible(0, -1);
             simulatorInterface.isMovePossible(0, 9);
-        } catch (IllegalArgumentException e) {
+        /*} catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([0], [-1,9]) did not throw an IllegalArgumentsException.");
+            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([0], [-1,9]) did not throw an IllegalArgumentsException.");*/
 
         //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
         //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).
