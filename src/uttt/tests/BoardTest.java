@@ -81,19 +81,18 @@ public class BoardTest {
 
         boolean gotException = false;
 
-        //try {
+        try {
             boardInterface.setMarkAt(Symbol.CROSS, -1);
             boardInterface.setMarkAt(Symbol.CROSS, 9);
             boardInterface.setMarkAt(null, 0);
-        /*} catch (IllegalArgumentException e) {
+            boardInterface.setMarks(null);
+            boardInterface.setMarkAt(Symbol.CROSS, 0);
+        } catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("MARKS TEST FAILED: #setMarkAt did not throw an IllegalArgumentsException.");*/
-
-        boardInterface.setMarks(null);
-        boardInterface.setMarkAt(Symbol.CROSS, 0);
+            throw new IllegalArgumentException("MARKS TEST FAILED: #setMarkAt did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
@@ -116,15 +115,15 @@ public class BoardTest {
 
         boolean gotException = false;
 
-        //try {
+        try {
             boardInterface.isMovePossible(-1);
             boardInterface.isMovePossible(9);
-        /*} catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([-1,9]) did not throw an IllegalArgumentsException.");*/
+            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([-1,9]) did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }

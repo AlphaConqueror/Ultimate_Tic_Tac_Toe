@@ -119,19 +119,18 @@ public class SimulatorTest {
 
         boolean gotException = false;
 
-        //try {
+        try {
             simulatorInterface.setMarkAt(null, 0, 0);
             simulatorInterface.setMarkAt(Symbol.CROSS, -1, -1);
             simulatorInterface.setMarkAt(Symbol.CROSS, 9, 9);
-       /* } catch (IllegalArgumentException e) {
+            simulatorInterface.setBoards(null);
+            simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
+        } catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("SET MARK TEST FAILED: #setMarkAt(null, 0, 0) did not throw an IllegalArgumentsException.");*/
-
-        simulatorInterface.setBoards(null);
-        simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
+            throw new IllegalArgumentException("SET MARK TEST FAILED: #setMarkAt(null, 0, 0) did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
@@ -188,17 +187,17 @@ public class SimulatorTest {
 
         boolean gotException = false;
 
-        //try {
+        try {
             simulatorInterface.isMovePossible(-1);
             simulatorInterface.isMovePossible(9);
             simulatorInterface.isMovePossible(0, -1);
             simulatorInterface.isMovePossible(0, 9);
-        /*} catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             gotException = true;
         }
 
         if(!gotException)
-            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([0], [-1,9]) did not throw an IllegalArgumentsException.");*/
+            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([0], [-1,9]) did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
         //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).
