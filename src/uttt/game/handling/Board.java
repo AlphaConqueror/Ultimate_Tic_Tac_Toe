@@ -23,9 +23,9 @@ public class Board implements BoardInterface {
         this.marks = marks;
     }
 
-    public boolean setMarkAt(Symbol symbol, int markIndex) {
+    public boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException {
         if(markIndex < 0 || markIndex > 8)
-            return false;
+            throw new IllegalArgumentException();
 
         if(marks[markIndex].getSymbol() == Symbol.EMPTY) {
             marks[markIndex].setSymbol(symbol);
@@ -46,9 +46,9 @@ public class Board implements BoardInterface {
         return true;
     }
 
-    public boolean isMovePossible(int markIndex) {
+    public boolean isMovePossible(int markIndex) throws IllegalArgumentException {
         if(markIndex < 0 || markIndex > 8)
-            return false;
+            throw new IllegalArgumentException();
 
         if(isClosed())
             return false;

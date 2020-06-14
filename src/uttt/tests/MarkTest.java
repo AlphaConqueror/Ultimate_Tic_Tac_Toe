@@ -36,7 +36,8 @@ public class MarkTest {
             gotException = true;
         }
 
-        assertTrue("CREATE MARKS TEST FAILED: #createMark(s, [-1,9]) did not throw an IllegalArgumentsException.", gotException);
+        if(!gotException)
+            throw new IllegalArgumentException("CREATE MARKS TEST FAILED: #createMark(s, [-1,9]) did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #createMark(symbol, [-1,9]).
     }

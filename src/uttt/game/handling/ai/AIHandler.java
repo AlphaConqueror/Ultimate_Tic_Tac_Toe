@@ -53,7 +53,7 @@ public class AIHandler {
                 else if (m.getScore() == move.getScore() && m.getDepth() > move.getDepth())
                     move = m;
             } else if(m.getScore() < move.getScore())
-                    return m;
+                return m;
 
         return move;
     }

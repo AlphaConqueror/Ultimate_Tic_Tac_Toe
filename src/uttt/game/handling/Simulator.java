@@ -39,7 +39,10 @@ public class Simulator implements SimulatorInterface {
         currentSymbol = symbol;
     }
 
-    public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) {
+    public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException {
+        if(boardIndex < 0 || boardIndex > 8 || markIndex < 0 || markIndex > 8)
+            throw new IllegalArgumentException();
+
         if(symbol == Symbol.EMPTY || symbol != currentSymbol)
             return false;
 
@@ -75,11 +78,11 @@ public class Simulator implements SimulatorInterface {
         return true;
     }
 
-    public boolean isMovePossible(int boardIndex) {
+    public boolean isMovePossible(int boardIndex) throws IllegalArgumentException {
         if(boardIndex < 0 || boardIndex > 8)
-            return false;
+            throw new IllegalArgumentException();
 
-        if(indexNextBoard != -1 && boardIndex == indexNextBoard)
+        if(indexNextBoard != -1 && boardIndex != indexNextBoard)
             return false;
 
         BoardInterface board = boards[boardIndex];

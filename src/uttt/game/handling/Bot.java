@@ -34,9 +34,6 @@ public class Bot implements PlayerInterface {
                 Move nextMove = new Move(nextBoardIndex, mark.getPosition());
                 MoveValuation nextMoveValuation = AIHandler.getNextMove(clone, 0, symbol, symbol.flip());
 
-                System.out.println("Bot next possible move: " + nextMove.toString());
-                System.out.println("Bot next possible move valuation: " + nextMoveValuation.toString());
-
                 if(move == null) {
                     move = nextMove;
                     moveValuation = nextMoveValuation;
@@ -49,9 +46,6 @@ public class Bot implements PlayerInterface {
                 }
             }
         }
-
-        System.out.println("Next bot move: " + move.toString());
-        System.out.println("Next bot move valuation: " + moveValuation.toString());
 
         return move;
     }

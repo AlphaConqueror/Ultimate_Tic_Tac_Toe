@@ -36,8 +36,8 @@ public class BoardTest {
             assertTrue("MARKS TEST FAILED: Created board marks are not initialized empty.", mark.getSymbol() == Symbol.EMPTY);
 
         MarkInterface[] marks = {UTTTFactory.createMark(Symbol.CIRCLE, 0), UTTTFactory.createMark(Symbol.EMPTY, 1), UTTTFactory.createMark(Symbol.EMPTY, 2),
-                                 UTTTFactory.createMark(Symbol.EMPTY, 3), UTTTFactory.createMark(Symbol.CROSS, 4), UTTTFactory.createMark(Symbol.EMPTY, 5),
-                                 UTTTFactory.createMark(Symbol.EMPTY, 6), UTTTFactory.createMark(Symbol.EMPTY, 7), UTTTFactory.createMark(Symbol.CIRCLE, 8)};
+                UTTTFactory.createMark(Symbol.EMPTY, 3), UTTTFactory.createMark(Symbol.CROSS, 4), UTTTFactory.createMark(Symbol.EMPTY, 5),
+                UTTTFactory.createMark(Symbol.EMPTY, 6), UTTTFactory.createMark(Symbol.EMPTY, 7), UTTTFactory.createMark(Symbol.CIRCLE, 8)};
 
         boardInterface.setMarks(marks);
 
@@ -60,7 +60,7 @@ public class BoardTest {
 
         for(int i = 0; i < 9; i++) {
             Symbol symbol = boardMarks[i].getSymbol(),
-                   newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
+                    newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
 
             boolean bool = boardInterface.setMarkAt(newSymbol, i);
 
@@ -89,7 +89,8 @@ public class BoardTest {
             gotException = true;
         }
 
-        assertTrue("MARKS TEST FAILED: #setMarkAt did not throw an IllegalArgumentsException.", gotException);
+        if(!gotException)
+            throw new IllegalArgumentException("MARKS TEST FAILED: #setMarkAt did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
@@ -119,7 +120,8 @@ public class BoardTest {
             gotException = true;
         }
 
-        assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible([-1,9]) did not throw an IllegalArgumentsException.", gotException);
+        if(!gotException)
+            throw new IllegalArgumentException("MOVE POSSIBLE TEST FAILED: #isMovePossible([-1,9]) did not throw an IllegalArgumentsException.");
 
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }

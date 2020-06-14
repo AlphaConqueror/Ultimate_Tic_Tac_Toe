@@ -9,7 +9,10 @@ public class Mark implements MarkInterface {
     private Symbol symbol;
     private int position;
 
-    public Mark(Symbol symbol, int position) {
+    public Mark(Symbol symbol, int position) throws IllegalArgumentException {
+        if(position < 0 || position > 8)
+            throw new IllegalArgumentException();
+
         this.symbol = symbol;
         this.position = position;
     }
