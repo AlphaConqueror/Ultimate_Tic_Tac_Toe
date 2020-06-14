@@ -87,6 +87,12 @@ public class BoardTest {
         boardInterface.setMarkAt(null, 0);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void cMarksNullTest() {
+        boardInterface.setMarks(null);
+        boardInterface.setMarkAt(Symbol.EMPTY, 0);
+    }
+
     @Test
     public void dMovePossibleTest() {
         boardInterface.setMarks(
