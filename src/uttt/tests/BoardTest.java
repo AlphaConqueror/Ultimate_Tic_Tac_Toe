@@ -84,8 +84,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void cMarksArgumentsTest() {
-        boardInterface.setMarks(null);
-        boardInterface.setMarkAt(Symbol.CROSS, 0);
+        boardInterface.setMarkAt(null, 0);
     }
 
     @Test

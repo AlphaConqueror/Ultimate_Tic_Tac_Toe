@@ -122,8 +122,7 @@ public class SimulatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void eMarksArgumentsTest() {
-        simulatorInterface.setBoards(null);
-        simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
+        simulatorInterface.setMarkAt(null, 0, 0);
     }
 
     @Test
@@ -191,7 +190,27 @@ public class SimulatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void h3MovePossibleBMLowerBoundsTest() {
+    public void h3MovePossibleBLowerMLowerBoundsTest() {
+        simulatorInterface.isMovePossible(-1, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h3MovePossibleBLowerMUpperBoundsTest() {
+        simulatorInterface.isMovePossible(-1, 9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h3MovePossibleBUpperMLowerBoundsTest() {
+        simulatorInterface.isMovePossible(9, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h3MovePossibleBUpperMUpperBoundsTest() {
+        simulatorInterface.isMovePossible(9, 9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h4MovePossibleBMLowerTest() {
         simulatorInterface.isMovePossible(0, -1);
     }
 
