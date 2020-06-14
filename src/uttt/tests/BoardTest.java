@@ -25,7 +25,7 @@ public class BoardTest {
     }
 
     @Test
-    public void bMarksTest() throws IllegalArgumentException {
+    public void bMarksTest() {
         MarkInterface[] boardMarks = boardInterface.getMarks();
 
         assertNotNull("MARKS TEST FAILED: #getMarks returns null.", boardMarks);
@@ -79,14 +79,17 @@ public class BoardTest {
                 assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is false, got true.", !bool);
         }
 
-        boardInterface.setMarks(null);
-        boardInterface.setMarkAt(Symbol.CROSS, 0);
-
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void cMarksArgumentsTest() {
+        boardInterface.setMarks(null);
+        boardInterface.setMarkAt(Symbol.CROSS, 0);
+    }
+
     @Test
-    public void cMovePossibleTest() throws IllegalArgumentException {
+    public void dMovePossibleTest() {
         boardInterface.setMarks(
                 new MarkInterface[] {UTTTFactory.createMark(Symbol.CROSS, 0), UTTTFactory.createMark(Symbol.EMPTY, 1), UTTTFactory.createMark(Symbol.EMPTY, 2),
                         UTTTFactory.createMark(Symbol.CROSS, 3), UTTTFactory.createMark(Symbol.EMPTY, 4), UTTTFactory.createMark(Symbol.CIRCLE, 5),
@@ -101,15 +104,21 @@ public class BoardTest {
                         !boardInterface.isMovePossible(mark.getPosition()));
         }
 
-        boardInterface.isMovePossible(-1);
-        boardInterface.isMovePossible(9);
-
-
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void eMovePossibleLowerBoundsTest() {
+        boardInterface.isMovePossible(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void eMovePossibleUpperBoundsTest() {
+        boardInterface.isMovePossible(9);
+    }
+
     @Test
-    public void dWinnerClosedTest() {
+    public void fWinnerClosedTest() {
         for(int i = 1; i < 2; i++) {
             Symbol symbol = (i == 1) ? Symbol.CROSS : Symbol.CIRCLE;
 

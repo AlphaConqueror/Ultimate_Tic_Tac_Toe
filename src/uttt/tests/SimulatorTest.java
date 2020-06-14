@@ -93,7 +93,7 @@ public class SimulatorTest {
     }
 
     @Test
-    public void dSetMarkTest() throws IllegalArgumentException {
+    public void dSetMarkTest() {
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
@@ -117,14 +117,17 @@ public class SimulatorTest {
                 (simulatorInterface.getBoards()[4].getMarks()[2].getSymbol() == Symbol.EMPTY));
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = false, got true.", !bool);
 
-        simulatorInterface.setBoards(null);
-        simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
-
         //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void eMarksArgumentsTest() {
+        simulatorInterface.setBoards(null);
+        simulatorInterface.setMarkAt(Symbol.CROSS, 0, 0);
+    }
+
     @Test
-    public void eNextIndexTest() {
+    public void fNextIndexTest() {
         assertTrue("NEXT INDEX TEST FAILED: Next board index is not correct. Right index = -1, got " + simulatorInterface.getIndexNextBoard() + ".",
                 simulatorInterface.getIndexNextBoard() == -1);
 
@@ -153,7 +156,7 @@ public class SimulatorTest {
     }
 
     @Test
-    public void fMovePossibleTest() throws IllegalArgumentException {
+    public void gMovePossibleTest() {
         BoardInterface[] boards = new BoardInterface[9];
 
         for(int k = 0; k < 9; k++)
@@ -173,15 +176,32 @@ public class SimulatorTest {
         bool = simulatorInterface.isMovePossible(0, 1);
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m) returned the wrong boolean.", !bool);
 
-        simulatorInterface.isMovePossible(9);
-        simulatorInterface.isMovePossible(0, 9);
-
         //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
         //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void h1MovePossibleBLowerBoundsTest() {
+        simulatorInterface.isMovePossible(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h2MovePossibleBUpperTest() {
+        simulatorInterface.isMovePossible(9);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h3MovePossibleBMLowerBoundsTest() {
+        simulatorInterface.isMovePossible(0, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void h4MovePossibleBMUpperTest() {
+        simulatorInterface.isMovePossible(0, 9);
+    }
+
     @Test
-    public void gWinnerGameOverTest() {
+    public void iWinnerGameOverTest() {
         for(int i = 1; i < 2; i++) {
             Symbol symbol = (i == 1) ? Symbol.CROSS : Symbol.CIRCLE;
 
