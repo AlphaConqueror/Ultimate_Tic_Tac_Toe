@@ -40,11 +40,20 @@ public class Simulator implements SimulatorInterface {
     }
 
     public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException {
-        if(boardIndex < 0 || boardIndex > 8 || markIndex < 0 || markIndex > 8)
-            throw new IllegalArgumentException();
+        if(symbol == null)
+            throw new IllegalArgumentException("Symbol is null.");
 
-        if(symbol == Symbol.EMPTY || symbol != currentSymbol)
-            return false;
+        if(boardIndex < 0 || boardIndex > 8)
+            throw new IllegalArgumentException("Board index out of bounds.");
+
+        if(markIndex < 0 || markIndex > 8)
+            throw new IllegalArgumentException("Mark index out of bounds.");
+
+        if(boards == null || boards[boardIndex] == null)
+            throw new IllegalArgumentException("Board is null.");
+
+        if(symbol != currentSymbol)
+            throw new IllegalArgumentException("Symbol is not that from the current player.");
 
         if(indexNextBoard != -1 && boardIndex != indexNextBoard)
             return false;
@@ -99,10 +108,10 @@ public class Simulator implements SimulatorInterface {
 
     public boolean isMovePossible(int boardIndex, int markIndex) {
         if(boardIndex < 0 || boardIndex > 8)
-            return false;
+            throw new IllegalArgumentException("Board index out of bounds.");
 
         if(markIndex < 0 || markIndex > 8)
-            return false;
+            throw new IllegalArgumentException("Mark index out of bounds.");
 
         if(indexNextBoard != -1 && boardIndex != indexNextBoard)
             return false;

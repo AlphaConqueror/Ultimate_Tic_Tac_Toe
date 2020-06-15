@@ -18,6 +18,14 @@ public class Bot implements PlayerInterface {
         return symbol;
     }
 
+    /**
+     * Gets the next best move to win the game.
+     *
+     * @param game The current UltimateTicTacToe game instance.
+     * @param ui   The user interface allows for communication.
+     *
+     * @return The next best move to win the game.
+     */
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
         Move move = null;
         MoveValuation moveValuation = null;
@@ -48,6 +56,13 @@ public class Bot implements PlayerInterface {
         return move;
     }
 
+    /**
+     * Used to get the next free board index.
+     *
+     * @param game The current UltimateTicTacToe game instance.
+     *
+     * @return The next free board index.
+     */
     private int getNextBoardIndex(SimulatorInterface game) {
         int nextIndex = game.getIndexNextBoard();
         BoardInterface[] boards = game.getBoards();

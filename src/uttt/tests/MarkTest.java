@@ -1,14 +1,14 @@
 package uttt.tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-
 import org.junit.runners.MethodSorters;
-import uttt.game.MarkInterface;
 import uttt.UTTTFactory;
+import uttt.game.MarkInterface;
 import uttt.utils.Symbol;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarkTest {

@@ -1,11 +1,8 @@
 package uttt.game.handling.ai;
 
-import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
 import uttt.game.MarkInterface;
-import uttt.game.SimulatorInterface;
 import uttt.game.handling.Board;
-import uttt.utils.Move;
 import uttt.utils.Symbol;
 
 import java.util.ArrayList;
@@ -14,6 +11,17 @@ import java.util.List;
 
 public class AIHandler {
 
+    /**
+     * Gets the worst move by evaluating score and depth of the move.
+     * Passes parameters to #getWorstCaseMove.
+     *
+     * @param board         The board that is currently played on.
+     * @param depth         The current depth of the branch.
+     * @param playerSymbol  The symbol of the bot.
+     * @param currentSymbol The symbol of the current player.
+     *
+     * @return The worst move valuation of all.
+     */
     public static MoveValuation getNextMove(BoardInterface board, int depth, Symbol playerSymbol, Symbol currentSymbol) {
         List<MoveValuation> moveValuations = new ArrayList<>();
         MarkInterface[] emptyMarks = getEmptyMarks(board);
@@ -41,6 +49,15 @@ public class AIHandler {
         return getWorstCaseMove(moveValuations.toArray(new MoveValuation[0]), playerSymbol, currentSymbol);
     }
 
+    /**
+     * Gets the worst move by evaluating score and depth of the move.
+     *
+     * @param moves         All move valuations at the same depth of a branch.
+     * @param playerSymbol  The symbol of the bot.
+     * @param currentSymbol The symbol of the current player.
+     *
+     * @return The worst move valuation of all.
+     */
     private static MoveValuation getWorstCaseMove(MoveValuation[] moves, Symbol playerSymbol, Symbol currentSymbol) {
         MoveValuation move = null;
 
@@ -58,6 +75,13 @@ public class AIHandler {
         return move;
     }
 
+    /**
+     * Gets all empty marks on a board.
+     *
+     * @param board The board containing the marks.
+     *
+     * @return Array of all empty marks on the board.
+     */
     private static MarkInterface[] getEmptyMarks(BoardInterface board) {
         List<MarkInterface> marks = new LinkedList<>();
 

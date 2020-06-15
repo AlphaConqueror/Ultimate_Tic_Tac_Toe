@@ -26,7 +26,7 @@ public interface BoardInterface {
 	 * Note: If the field is already occupied the mark does not change its symbol.
 	 *
 	 * @param symbol    The symbol the mark shall use.
-	 * @param markIndex the index of the field on the board.
+	 * @param markIndex The index of the field on the board.
 	 *
 	 * @return If the mark was correctly added.
 	 */

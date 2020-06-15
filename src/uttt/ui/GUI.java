@@ -1,24 +1,15 @@
 package uttt.ui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
 import uttt.game.BoardInterface;
 import uttt.game.MarkInterface;
 import uttt.game.SimulatorInterface;
 import uttt.game.UserInterface;
 import uttt.utils.Move;
 import uttt.utils.Symbol;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class GUI implements UserInterface {
 

@@ -24,8 +24,14 @@ public class Board implements BoardInterface {
     }
 
     public boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException {
+        if(symbol == null)
+            throw new IllegalArgumentException("Symbol is null.");
+
         if(markIndex < 0 || markIndex > 8)
             throw new IllegalArgumentException();
+
+        if(marks == null || marks[markIndex] == null)
+            throw new IllegalArgumentException("Mark is null.");
 
         if(marks[markIndex].getSymbol() == Symbol.EMPTY) {
             marks[markIndex].setSymbol(symbol);
