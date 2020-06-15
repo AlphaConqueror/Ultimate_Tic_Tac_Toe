@@ -39,6 +39,22 @@ public class Simulator implements SimulatorInterface {
         currentSymbol = symbol;
     }
 
+    /**
+     * Sets a symbol in the board at {@param boardIndex}
+     * in the field at {@param markIndex}.
+     *
+     * @param symbol     The symbol to be set.
+     * @param boardIndex The index of the board.
+     * @param markIndex  The index of the field on the board.
+     *
+     * @return If the mark was correctly added.
+     *
+     * @throws IllegalArgumentException If {@param symbol} is null.
+     * @throws IllegalArgumentException If {@param boardIndex} is out of bounds [0,8].
+     * @throws IllegalArgumentException If {@param markIndex} is out of bounds [0,8].
+     * @throws IllegalArgumentException If the array containing the boards or the board at {@param markIndex} is null.
+     * @throws IllegalArgumentException If the {@param symbol} does not equal the {@code currentSymbol}.
+     */
     public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException {
         if(symbol == null)
             throw new IllegalArgumentException("Symbol is null.");
@@ -52,16 +68,15 @@ public class Simulator implements SimulatorInterface {
         if(boards == null || boards[boardIndex] == null)
             throw new IllegalArgumentException("Board is null.");
 
-        if(symbol != currentSymbol)
-            throw new IllegalArgumentException("Symbol is not that from the current player.");
-
         if(indexNextBoard != -1 && boardIndex != indexNextBoard)
             return false;
 
         if(boards[boardIndex].isMovePossible(markIndex)) {
+            if(symbol != currentSymbol)
+                throw new IllegalArgumentException("Symbol is not that from the current player. Right symbol = " + currentSymbol.toString()
+                        + ", got " + symbol.toString() + ".");
+
             boards[boardIndex].setMarkAt(symbol, markIndex);
-            setCurrentPlayerSymbol(currentSymbol.flip());
-            setIndexNextBoard(boards[markIndex].isClosed() ? -1 : markIndex);
             return true;
         }
 
@@ -154,6 +169,8 @@ public class Simulator implements SimulatorInterface {
             Move move = currentPlayer.getPlayerMove(this, ui);
 
             setMarkAt(currentSymbol, move.getBoardIndex(), move.getMarkIndex());
+            setCurrentPlayerSymbol(currentSymbol.flip());
+            setIndexNextBoard(boards[move.getBoardIndex()].isClosed() ? -1 : move.getMarkIndex());
             ui.updateScreen(this);
         }
 

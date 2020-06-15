@@ -110,6 +110,8 @@ public class SimulatorTest {
                 (simulatorInterface.getBoards()[4].getMarks()[3].getSymbol() == currentSymbol));
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = true, got false.", bool);
 
+        simulatorInterface.setIndexNextBoard(3);
+
         bool = simulatorInterface.setMarkAt(simulatorInterface.getCurrentPlayerSymbol(), 4, 2);
 
         assertTrue("SET MARK TEST FAILED: #setMarkAt set the symbol even tho the board index =/= next index. Right index = "
@@ -181,6 +183,8 @@ public class SimulatorTest {
         for(int i = 0; i < 9; i++)
             assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m): Move is not possible when it is. Set board index = 1, checked (1," + i + ")",
                     simulatorInterface.isMovePossible(1, i));
+
+        simulatorInterface.setIndexNextBoard(1);
 
         boolean bool = simulatorInterface.isMovePossible(0);
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b) returned the wrong boolean.", !bool);
