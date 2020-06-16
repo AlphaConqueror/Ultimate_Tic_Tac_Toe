@@ -14,6 +14,7 @@ public class Bot implements PlayerInterface {
         this.symbol = symbol;
     }
 
+    @Override
     public Symbol getSymbol() {
         return symbol;
     }
@@ -26,6 +27,7 @@ public class Bot implements PlayerInterface {
      *
      * @return The next best move to win the game.
      */
+    @Override
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
         Move move = null;
         MoveValuation moveValuation = null;

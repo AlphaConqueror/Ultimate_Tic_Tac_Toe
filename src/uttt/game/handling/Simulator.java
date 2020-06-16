@@ -22,18 +22,22 @@ public class Simulator implements SimulatorInterface {
             boards[i] = new Board();
     }
 
+    @Override
     public BoardInterface[] getBoards() {
         return boards;
     }
 
+    @Override
     public void setBoards(BoardInterface[] boards) {
         this.boards = boards;
     }
 
+    @Override
     public Symbol getCurrentPlayerSymbol() {
         return currentSymbol;
     }
 
+    @Override
     public void setCurrentPlayerSymbol(Symbol symbol) {
         currentSymbol = symbol;
     }
@@ -54,6 +58,7 @@ public class Simulator implements SimulatorInterface {
      * @throws IllegalArgumentException If the array containing the boards or the board at {@param markIndex} is null.
      * @throws IllegalArgumentException If the {@param symbol} does not equal the {@code currentSymbol}.
      */
+    @Override
     public boolean setMarkAt(Symbol symbol, int boardIndex, int markIndex) throws IllegalArgumentException {
         if(symbol == null)
             throw new IllegalArgumentException("Symbol is null.");
@@ -82,14 +87,17 @@ public class Simulator implements SimulatorInterface {
         return false;
     }
 
+    @Override
     public int getIndexNextBoard() {
         return indexNextBoard;
     }
 
+    @Override
     public void setIndexNextBoard(int index) {
         indexNextBoard = index;
     }
 
+    @Override
     public boolean isGameOver() {
         if(getWinner() != Symbol.EMPTY)
             return true;
@@ -101,6 +109,7 @@ public class Simulator implements SimulatorInterface {
         return true;
     }
 
+    @Override
     public boolean isMovePossible(int boardIndex) throws IllegalArgumentException {
         if(boardIndex < 0 || boardIndex > 8)
             throw new IllegalArgumentException();
@@ -120,6 +129,7 @@ public class Simulator implements SimulatorInterface {
         return false;
     }
 
+    @Override
     public boolean isMovePossible(int boardIndex, int markIndex) {
         if(boardIndex < 0 || boardIndex > 8)
             throw new IllegalArgumentException("Board index out of bounds.");
@@ -136,6 +146,7 @@ public class Simulator implements SimulatorInterface {
         return boards[boardIndex].isMovePossible(markIndex);
     }
 
+    @Override
     public Symbol getWinner() {
         for(int i = 0; i < 2; i++) {
             Symbol symbol = (i == 0) ? Symbol.CROSS : Symbol.CIRCLE;
@@ -160,6 +171,7 @@ public class Simulator implements SimulatorInterface {
         return Symbol.EMPTY;
     }
 
+    @Override
     public void run(PlayerInterface playerOne, PlayerInterface playerTwo, UserInterface ui) {
         setCurrentPlayerSymbol(Symbol.CROSS);
 

@@ -14,14 +14,17 @@ public class Board implements BoardInterface {
             marks[i] = new Mark(Symbol.EMPTY, i);
     }
 
+    @Override
     public MarkInterface[] getMarks() {
         return marks;
     }
 
+    @Override
     public void setMarks(MarkInterface[] marks) {
         this.marks = marks;
     }
 
+    @Override
     public boolean setMarkAt(Symbol symbol, int markIndex) throws IllegalArgumentException {
         if(symbol == null)
             throw new IllegalArgumentException("Symbol is null.");
@@ -40,6 +43,7 @@ public class Board implements BoardInterface {
         return false;
     }
 
+    @Override
     public boolean isClosed() {
         if(getWinner() != Symbol.EMPTY)
             return true;
@@ -51,6 +55,7 @@ public class Board implements BoardInterface {
         return true;
     }
 
+    @Override
     public boolean isMovePossible(int markIndex) throws IllegalArgumentException {
         if(markIndex < 0 || markIndex > 8)
             throw new IllegalArgumentException();
@@ -61,6 +66,7 @@ public class Board implements BoardInterface {
         return marks[markIndex].getSymbol() == Symbol.EMPTY;
     }
 
+    @Override
     public Symbol getWinner() {
         for(int i = 0; i < 2; i++) {
             Symbol symbol = (i == 0) ? Symbol.CROSS : Symbol.CIRCLE;

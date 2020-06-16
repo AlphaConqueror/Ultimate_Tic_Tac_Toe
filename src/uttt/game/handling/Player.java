@@ -14,10 +14,12 @@ public class Player implements PlayerInterface {
         this.symbol = symbol;
     }
 
+    @Override
     public Symbol getSymbol() {
         return symbol;
     }
 
+    @Override
     public Move getPlayerMove(SimulatorInterface game, UserInterface ui) {
         Move move = ui.getUserMove();
 
