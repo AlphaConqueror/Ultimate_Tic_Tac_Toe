@@ -56,8 +56,6 @@ public class BoardTest {
                     marks[i].equals(boardMarks[i]));
         }
 
-        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
-
         for(int i = 0; i < 9; i++) {
             Symbol symbol = boardMarks[i].getSymbol(),
                     newSymbol = i % 2 == 0 ? Symbol.CROSS : Symbol.CIRCLE;
@@ -78,8 +76,6 @@ public class BoardTest {
             else
                 assertTrue("MARKS TEST FAILED: #setMarkAt returned the wrong boolean. Right boolean is false, got true.", !bool);
         }
-
-        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9]).
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -108,8 +104,6 @@ public class BoardTest {
                 assertTrue("MOVE POSSIBLE TEST FAILED: Move is not possible but got move is possible.",
                         !boardInterface.isMovePossible(mark.getPosition()));
         }
-
-        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
     @Test(expected = IllegalArgumentException.class)

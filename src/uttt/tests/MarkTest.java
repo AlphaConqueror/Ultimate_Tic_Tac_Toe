@@ -25,8 +25,6 @@ public class MarkTest {
             assertTrue("CREATE MARK TEST FAILED: Wrong symbol. Right symbol = " + symbol.toString() + ", got symbol " + markInterface.getSymbol(),
                     markInterface.getSymbol() == symbol);
         }
-
-        //Got IllegalArgumentsException after testing #createMark(symbol, [-1,9]).
     }
 
     @Test

@@ -1,6 +1,5 @@
 package uttt.game.handling;
 
-import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
 import uttt.game.PlayerInterface;
 import uttt.game.SimulatorInterface;
@@ -20,7 +19,7 @@ public class Simulator implements SimulatorInterface {
         indexNextBoard = -1;
 
         for(int i = 0; i < 9; i++)
-            boards[i] = UTTTFactory.createBoard();
+            boards[i] = new Board();
     }
 
     public BoardInterface[] getBoards() {
@@ -170,7 +169,7 @@ public class Simulator implements SimulatorInterface {
 
             setMarkAt(currentSymbol, move.getBoardIndex(), move.getMarkIndex());
             setCurrentPlayerSymbol(currentSymbol.flip());
-            setIndexNextBoard(boards[move.getBoardIndex()].isClosed() ? -1 : move.getMarkIndex());
+            setIndexNextBoard(boards[move.getMarkIndex()].isClosed() ? -1 : move.getMarkIndex());
             ui.updateScreen(this);
         }
 

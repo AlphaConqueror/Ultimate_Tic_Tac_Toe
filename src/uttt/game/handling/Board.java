@@ -1,5 +1,4 @@
 package uttt.game.handling;
-import uttt.UTTTFactory;
 import uttt.game.BoardInterface;
 import uttt.game.MarkInterface;
 import uttt.utils.Symbol;
@@ -12,7 +11,7 @@ public class Board implements BoardInterface {
         marks = new MarkInterface[9];
 
         for(int i = 0; i < 9; i++)
-            marks[i] = UTTTFactory.createMark(Symbol.EMPTY, i);
+            marks[i] = new Mark(Symbol.EMPTY, i);
     }
 
     public MarkInterface[] getMarks() {
@@ -87,12 +86,12 @@ public class Board implements BoardInterface {
     }
 
     public static BoardInterface cloneBoard(BoardInterface board) {
-        BoardInterface clone = UTTTFactory.createBoard();
+        BoardInterface clone = new Board();
         MarkInterface[] boardMarks = board.getMarks(),
                 cloneMarks = new MarkInterface[9];
 
         for(int i = 0; i < 9; i++)
-            cloneMarks[i] = UTTTFactory.createMark(boardMarks[i].getSymbol(), boardMarks[i].getPosition());
+            cloneMarks[i] = new Mark(boardMarks[i].getSymbol(), boardMarks[i].getPosition());
 
         clone.setMarks(cloneMarks);
 

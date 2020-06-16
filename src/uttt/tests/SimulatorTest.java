@@ -73,8 +73,6 @@ public class SimulatorTest {
 
     @Test
     public void cCurrentPlayerTest() {
-        //No need to test if the right player starts bc it's the job of #run
-
         simulatorInterface.setBoards(new BoardInterface[] {UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard(),
                 UTTTFactory.createBoard(), UTTTFactory.createBoard(), UTTTFactory.createBoard()});
@@ -100,8 +98,6 @@ public class SimulatorTest {
 
         simulatorInterface.setCurrentPlayerSymbol(Symbol.CROSS);
 
-        //Got IllegalArgumentsException after testing #setMarkAt with wrong player symbol.
-
         Symbol currentSymbol = simulatorInterface.getCurrentPlayerSymbol();
         boolean bool = simulatorInterface.setMarkAt(currentSymbol, 4, 3);
 
@@ -118,8 +114,6 @@ public class SimulatorTest {
                         + simulatorInterface.getIndexNextBoard() + ", got index 4.",
                 (simulatorInterface.getBoards()[4].getMarks()[2].getSymbol() == Symbol.EMPTY));
         assertTrue("SET MARK TEST FAILED: #setMarkAt did not return the right boolean. Right boolean = false, got true.", !bool);
-
-        //Got IllegalArgumentsException after testing #setMarkAt(s, [-1,9], [-1,9]).
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -191,9 +185,6 @@ public class SimulatorTest {
 
         bool = simulatorInterface.isMovePossible(0, 1);
         assertTrue("MOVE POSSIBLE TEST FAILED: #isMovePossible(b,m) returned the wrong boolean.", !bool);
-
-        //Got IllegalArgumentsException after testing #isMovePossible([-1,9]).
-        //Got IllegalArgumentsException after testing #isMovePossible(m, [-1,9]).
     }
 
     @Test(expected = IllegalArgumentException.class)
